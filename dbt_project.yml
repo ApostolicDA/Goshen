@@ -1,0 +1,37 @@
+name: 'goshen'
+version: '1.0.0'
+
+profile: 'goshen'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  goshen:
+    staging:
+      +materialized: view
+      +schema: staging
+      facebook:
+        +tags: ["facebook", "staging"]
+      youtube:
+        +tags: ["youtube", "staging"]
+      instagram:
+        +tags: ["instagram", "staging"]
+      tiktok:
+        +tags: ["tiktok", "staging"]
+      attendance:
+        +tags: ["attendance", "staging"]
+      members:
+        +tags: ["members", "staging"]
+    marts:
+      +materialized: table
+      +schema: marts
+      +tags: ["marts"]

@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: analytics
+    database: goshen-analytics
+    schema: analytics
+    tables:
+      - name: facebook
+      - name: youtube_channel
+      - name: youtube_videos
+      - name: youtube_comments
+
+      - name: facebook_posts
