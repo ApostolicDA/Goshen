@@ -4,13 +4,10 @@ import requests
 from datetime import datetime, timezone
 from google.cloud import bigquery
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\gadis\Downloads\goshen-analytics-1a4583133e1e.json"
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 client = bigquery.Client()
-
-YOUTUBE_API_KEY = "AIzaSyCvV5MKAqq3ED10wJpjTRh8Qx_t8KjD4ts"
-CHANNEL_ID      = "UCgntCquF4w2Gx5ZzzOj1KOw"
-
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
+CHANNEL_ID      = os.getenv("YOUTUBE_CHANNEL_ID")
 BASE_URL = "https://www.googleapis.com/youtube/v3"
 
 # ── Channel Stats ─────────────────────────────────────────────
