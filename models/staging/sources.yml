@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: analytics
+    schema: analytics
+
+    tables:
+      - name: facebook
+
+      - name: facebook_csv_insights
+
+      - name: facebook_posts
+
+      - name: tiktok_followers
+
+      - name: tiktok_live_history
+
+      - name: tiktok_live_comments
+
+      - name: tiktok_posts
+
+      - name: tiktok_watch_live_history
+
+      - name: youtube_channel
+
+      - name: youtube_comments
+
+      - name: youtube_videos

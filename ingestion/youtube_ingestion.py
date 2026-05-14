@@ -3,6 +3,9 @@ import os
 import requests
 from datetime import datetime, timezone
 from google.cloud import bigquery
+from dotenv import load_dotenv  
+
+load_dotenv()  
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 client = bigquery.Client()
