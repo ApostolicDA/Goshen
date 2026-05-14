@@ -1,17 +1,11 @@
 {{ config(
-    materialized = 'incremental',
-    unique_key   = 'watch_id',
-    on_schema_change = 'sync_all_columns'
+    materialized = 'view'
 ) }}
 
 with source as (
 
     select *
     from {{ source('analytics', 'tiktok_watch_live_history') }}
-
-    {% if is_incremental() %}
-    where ingested_at > (select max(ingested_at) from {{ this }})
-    {% endif %}
 
 ),
 
@@ -30,16 +24,14 @@ cleaned as (
 
     select
         to_hex(md5(concat(
-    coalesce(watched_at_raw, ''), '|',
-    coalesce(link_raw, '')
-))) as watch_id,
+            coalesce(watched_at_raw, ''), '|',
+            coalesce(link_raw, '')
+        ))) as watch_id,
 
         cast(watched_at_raw as timestamp)               as watched_at,
 
         nullif(link_raw, '')                            as link,
 
-        -- Count how many comment lines are in the blob
-        -- Each line starts with "[YYYY-MM-DD" so count those brackets
         array_length(
             regexp_extract_all(
                 coalesce(raw_comments_blob, ''),
