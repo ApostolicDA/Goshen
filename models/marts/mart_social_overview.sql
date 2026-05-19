@@ -17,15 +17,19 @@ with facebook as (
 tiktok as (
 
     select
-        'tiktok'                            as platform,
-        max(cumulative_followers)           as total_followers,
-        0                                   as total_posts,
-        0                                   as total_likes,
-        0                                   as total_views,
-        0                                   as total_comments,
-        0.0                                 as avg_engagement_rate,
-        0                                   as total_live_sessions
-    from {{ ref('mart_tiktok_followers') }}
+        'tiktok'                                as platform,
+        max(f.cumulative_followers)             as total_followers,
+        0                                       as total_posts,
+        sum(l.total_likes)                      as total_likes,
+        sum(l.total_views)                      as total_views,
+        0                                       as total_comments,
+        round(avg(l.like_rate), 2)              as avg_engagement_rate,
+        count(distinct l.room_id)               as total_live_sessions
+    from {{ ref('mart_tiktok_live_perfomance') }} l
+    cross join (
+        select max(cumulative_followers) as cumulative_followers
+        from {{ ref('mart_tiktok_followers') }}
+    ) f
 
 ),
 
