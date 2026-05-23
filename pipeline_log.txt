@@ -1,0 +1,639 @@
+Traceback (most recent call last):
+  File "C:\Users\gadis\goshen\run_ingestion.py", line 12, in <module>
+    print(f"\n\U0001f680 Running {script}...")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 2: character maps to <undefined>
+dbt-fusion 2.0.0-preview.175
+   Loading ~/.dbt/profiles.yml
+   Started resolving packages from packages.yml
+  Finished [  0.61s] resolving packages from packages.yml (1 items)
+New version available 2.0.0-preview.177 (run `dbt system update`)
+
+=================== Errors and Warnings ====================
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:25:23
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:43:23
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:71:23
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:95:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:271:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:279:27
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:231:23
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:256:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:236:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:246:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:241:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:251:27
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:108:23
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:116:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:121:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:140:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:163:27
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:189:23
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:194:27
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:216:23
+suggestion: Run 'dbt deps' to see the latest fusion compatible packages. For compatibility errors, try the autofix script: https://github.com/dbt-labs/dbt-autofix
+
+==================== Execution Summary =====================
+Finished 'run' with 20 errors for target 'dev' [6.6s]
+dbt-fusion 2.0.0-preview.175
+   Loading ~/.dbt/profiles.yml
+   Started resolving packages from packages.yml
+  Finished [  0.14s] resolving packages from packages.yml (1 items)
+New version available 2.0.0-preview.177 (run `dbt system update`)
+
+=================== Errors and Warnings ====================
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:25:23
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:43:23
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:71:23
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:95:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:271:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:279:27
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:231:23
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:256:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:236:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:246:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:241:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:251:27
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:108:23
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:116:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:121:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:140:27
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:163:27
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:189:23
+error: dbt0102: Deprecated test arguments: ["expression"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:194:27
+error: dbt0102: Deprecated test arguments: ["values"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\schema.yml:216:23
+suggestion: Run 'dbt deps' to see the latest fusion compatible packages. For compatibility errors, try the autofix script: https://github.com/dbt-labs/dbt-autofix
+
+==================== Execution Summary =====================
+Finished 'test' with 20 errors for target 'dev' [2.1s]
+Pipeline completed 2026/05/23 21:33:24,80 
+Traceback (most recent call last):
+  File "C:\Users\gadis\goshen\run_ingestion.py", line 12, in <module>
+    print(f"\n\U0001f680 Running {script}...")
+  File "C:\Users\gadis\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 2: character maps to <undefined>
+19:36:21  Running with dbt=1.11.9
+19:36:27  Registered adapter: bigquery=1.11.1
+19:36:33  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 3 unused configuration paths:
+- models.goshen.staging.members
+- models.goshen.staging.instagram
+- models.goshen.staging.attendance
+19:36:33  Found 22 models, 84 data tests, 11 sources, 657 macros
+19:36:33  
+19:36:33  Concurrency: 4 threads (target='dev')
+19:36:33  
+19:36:43  1 of 22 START sql view model analytics_staging.stg_facebook_insights ........... [RUN]
+19:36:43  2 of 22 START sql view model analytics_staging.stg_facebook_posts .............. [RUN]
+19:36:43  3 of 22 START sql view model analytics_staging.stg_tiktok_followers ............ [RUN]
+19:36:43  4 of 22 START sql view model analytics_staging.stg_tiktok_live ................. [RUN]
+19:36:55  2 of 22 OK created sql view model analytics_staging.stg_facebook_posts ......... [CREATE VIEW (0 processed) in 11.80s]
+19:36:55  1 of 22 OK created sql view model analytics_staging.stg_facebook_insights ...... [CREATE VIEW (0 processed) in 11.80s]
+19:36:55  3 of 22 OK created sql view model analytics_staging.stg_tiktok_followers ....... [CREATE VIEW (0 processed) in 11.80s]
+19:36:55  4 of 22 OK created sql view model analytics_staging.stg_tiktok_live ............ [CREATE VIEW (0 processed) in 11.80s]
+19:36:55  5 of 22 START sql view model analytics_staging.stg_tiktok_live_comments ........ [RUN]
+19:36:55  6 of 22 START sql view model analytics_staging.stg_tiktok_posts ................ [RUN]
+19:36:55  7 of 22 START sql view model analytics_staging.stg_tiktok_watch_live_history ... [RUN]
+19:36:55  8 of 22 START sql view model analytics_staging.stg_youtube_channel ............. [RUN]
+19:36:59  5 of 22 OK created sql view model analytics_staging.stg_tiktok_live_comments ... [CREATE VIEW (0 processed) in 4.51s]
+19:36:59  9 of 22 START sql view model analytics_staging.stg_youtube_comments ............ [RUN]
+19:37:00  8 of 22 OK created sql view model analytics_staging.stg_youtube_channel ........ [CREATE VIEW (0 processed) in 4.67s]
+19:37:00  10 of 22 START sql view model analytics_staging.stg_youtube_videos ............. [RUN]
+19:37:00  6 of 22 OK created sql view model analytics_staging.stg_tiktok_posts ........... [CREATE VIEW (0 processed) in 4.71s]
+19:37:00  11 of 22 START sql table model analytics_marts.mart_facebook_posts ............. [RUN]
+19:37:00  7 of 22 OK created sql view model analytics_staging.stg_tiktok_watch_live_history  [CREATE VIEW (0 processed) in 4.74s]
+19:37:00  12 of 22 START sql table model analytics_marts.mart_facebook_insights .......... [RUN]
+19:37:04  9 of 22 OK created sql view model analytics_staging.stg_youtube_comments ....... [CREATE VIEW (0 processed) in 4.09s]
+19:37:04  13 of 22 START sql table model analytics_marts.mart_facebook_metrics ........... [RUN]
+19:37:04  10 of 22 OK created sql view model analytics_staging.stg_youtube_videos ........ [CREATE VIEW (0 processed) in 4.40s]
+19:37:04  14 of 22 START sql table model analytics_marts.mart_tiktok_followers ........... [RUN]
+19:37:07  11 of 22 OK created sql table model analytics_marts.mart_facebook_posts ........ [CREATE TABLE (702.0 rows, 2.4 MiB processed) in 7.43s]
+19:37:07  15 of 22 START sql table model analytics_marts.mart_tiktok_live_perfomance ..... [RUN]
+19:37:08  12 of 22 OK created sql table model analytics_marts.mart_facebook_insights ..... [CREATE TABLE (16.0 rows, 15.5 KiB processed) in 7.95s]
+19:37:08  16 of 22 START sql table model analytics_marts.mart_posts_perfomance ........... [RUN]
+19:37:10  13 of 22 OK created sql table model analytics_marts.mart_facebook_metrics ...... [CREATE TABLE (112.0 rows, 15.5 KiB processed) in 6.64s]
+19:37:10  17 of 22 START sql table model analytics_marts.mart_youtube_perfomance ......... [RUN]
+19:37:10  14 of 22 OK created sql table model analytics_marts.mart_tiktok_followers ...... [CREATE TABLE (255.0 rows, 2.1 MiB processed) in 6.39s]
+19:37:10  18 of 22 START sql table model analytics_marts.mart_youtube_videos ............. [RUN]
+19:37:13  15 of 22 OK created sql table model analytics_marts.mart_tiktok_live_perfomance  [CREATE TABLE (36.0 rows, 75.6 KiB processed) in 5.77s]
+19:37:13  19 of 22 START sql table model analytics_marts.mart_social_followers_snapshot .. [RUN]
+19:37:14  16 of 22 OK created sql table model analytics_marts.mart_posts_perfomance ...... [CREATE TABLE (75.0 rows, 109.7 KiB processed) in 6.17s]
+19:37:14  20 of 22 START sql table model analytics_marts.mart_tiktok_activity_overlap .... [RUN]
+19:37:16  18 of 22 OK created sql table model analytics_marts.mart_youtube_videos ........ [CREATE TABLE (61.0 rows, 358.3 KiB processed) in 5.96s]
+19:37:16  17 of 22 OK created sql table model analytics_marts.mart_youtube_perfomance .... [CREATE TABLE (61.0 rows, 335.8 KiB processed) in 6.21s]
+19:37:16  21 of 22 START sql table model analytics_marts.mart_social_overview ............ [RUN]
+19:37:16  22 of 22 START sql table model analytics_marts.mart_executive_summary .......... [RUN]
+19:37:20  20 of 22 OK created sql table model analytics_marts.mart_tiktok_activity_overlap  [CREATE TABLE (73.0 rows, 2.0 KiB processed) in 5.99s]
+19:37:23  21 of 22 OK created sql table model analytics_marts.mart_social_overview ....... [CREATE TABLE (3.0 rows, 15.9 KiB processed) in 6.21s]
+19:37:23  22 of 22 OK created sql table model analytics_marts.mart_executive_summary ..... [CREATE TABLE (3.0 rows, 5.3 KiB processed) in 6.41s]
+19:37:35  19 of 22 OK created sql table model analytics_marts.mart_social_followers_snapshot  [CREATE TABLE (270.0 rows, 20.5 KiB processed) in 21.69s]
+19:37:35  
+19:37:35  Finished running 12 table models, 10 view models in 0 hours 1 minutes and 1.23 seconds (61.23s).
+19:37:35  
+19:37:35  Completed successfully
+19:37:35  
+19:37:35  Done. PASS=22 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=22
+19:37:42  Running with dbt=1.11.9
+19:37:44  Registered adapter: bigquery=1.11.1
+19:37:45  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 3 unused configuration paths:
+- models.goshen.staging.attendance
+- models.goshen.staging.members
+- models.goshen.staging.instagram
+19:37:46  Found 22 models, 84 data tests, 11 sources, 657 macros
+19:37:46  
+19:37:46  Concurrency: 4 threads (target='dev')
+19:37:46  
+19:37:49  1 of 84 START test accepted_values_mart_facebook_insights_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:37:49  2 of 84 START test accepted_values_mart_facebook_metrics_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:37:49  3 of 84 START test accepted_values_mart_facebook_posts_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:37:49  4 of 84 START test accepted_values_mart_social_overview_platform__facebook__youtube__tiktok__instagram  [RUN]
+19:37:54  4 of 84 PASS accepted_values_mart_social_overview_platform__facebook__youtube__tiktok__instagram  [PASS in 5.30s]
+19:37:54  2 of 84 PASS accepted_values_mart_facebook_metrics_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.31s]
+19:37:54  5 of 84 START test accepted_values_mart_tiktok_activity_overlap_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:37:54  6 of 84 START test accepted_values_mart_youtube_perfomance_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:37:54  1 of 84 PASS accepted_values_mart_facebook_insights_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.35s]
+19:37:54  7 of 84 START test accepted_values_mart_youtube_videos_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:37:54  3 of 84 PASS accepted_values_mart_facebook_posts_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.48s]
+19:37:54  8 of 84 START test dbt_utils_expression_is_true_mart_posts_perfomance_likes___0  [RUN]
+19:37:59  5 of 84 PASS accepted_values_mart_tiktok_activity_overlap_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 4.74s]
+19:37:59  9 of 84 START test dbt_utils_expression_is_true_mart_social_followers_snapshot_follower_count___0  [RUN]
+19:37:59  6 of 84 PASS accepted_values_mart_youtube_perfomance_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 4.88s]
+19:37:59  10 of 84 START test dbt_utils_expression_is_true_mart_social_followers_snapshot_total_views___0  [RUN]
+19:37:59  7 of 84 PASS accepted_values_mart_youtube_videos_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 4.94s]
+19:37:59  11 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_comments___0  [RUN]
+19:38:00  8 of 84 PASS dbt_utils_expression_is_true_mart_posts_perfomance_likes___0 ...... [PASS in 5.40s]
+19:38:00  12 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_followers___0  [RUN]
+19:38:03  9 of 84 PASS dbt_utils_expression_is_true_mart_social_followers_snapshot_follower_count___0  [PASS in 4.54s]
+19:38:03  13 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_likes___0  [RUN]
+19:38:04  10 of 84 PASS dbt_utils_expression_is_true_mart_social_followers_snapshot_total_views___0  [PASS in 4.49s]
+19:38:04  14 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_posts___0  [RUN]
+19:38:04  11 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_comments___0  [PASS in 4.53s]
+19:38:04  15 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_views___0  [RUN]
+19:38:04  12 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_followers___0  [PASS in 4.64s]
+19:38:04  16 of 84 START test dbt_utils_expression_is_true_mart_tiktok_activity_overlap_posts_on_day___0  [RUN]
+19:38:08  14 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_posts___0  [PASS in 4.63s]
+19:38:08  17 of 84 START test dbt_utils_expression_is_true_mart_tiktok_activity_overlap_total_post_likes___0  [RUN]
+19:38:08  15 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_views___0  [PASS in 4.63s]
+19:38:08  18 of 84 START test dbt_utils_expression_is_true_mart_tiktok_followers_cumulative_followers___0  [RUN]
+19:38:08  13 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_likes___0  [PASS in 4.89s]
+19:38:08  19 of 84 START test dbt_utils_expression_is_true_mart_tiktok_live_perfomance_duration_mins___0  [RUN]
+19:38:09  16 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_activity_overlap_posts_on_day___0  [PASS in 5.03s]
+19:38:09  20 of 84 START test dbt_utils_expression_is_true_mart_youtube_perfomance_view_count___0  [RUN]
+19:38:13  17 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_activity_overlap_total_post_likes___0  [PASS in 4.54s]
+19:38:13  21 of 84 START test not_null_mart_facebook_insights_date ....................... [RUN]
+19:38:13  18 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_followers_cumulative_followers___0  [PASS in 4.56s]
+19:38:13  22 of 84 START test not_null_mart_facebook_insights_day_of_week ................ [RUN]
+19:38:13  19 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_live_perfomance_duration_mins___0  [PASS in 4.88s]
+19:38:13  23 of 84 START test not_null_mart_facebook_insights_total_followers ............ [RUN]
+19:38:14  20 of 84 PASS dbt_utils_expression_is_true_mart_youtube_perfomance_view_count___0  [PASS in 4.42s]
+19:38:14  24 of 84 START test not_null_mart_facebook_insights_unique_impressions ......... [RUN]
+19:38:18  21 of 84 PASS not_null_mart_facebook_insights_date ............................. [PASS in 4.90s]
+19:38:18  25 of 84 START test not_null_mart_facebook_insights_year_month ................. [RUN]
+19:38:18  22 of 84 PASS not_null_mart_facebook_insights_day_of_week ...................... [PASS in 4.96s]
+19:38:18  26 of 84 START test not_null_mart_facebook_insights_year_week .................. [RUN]
+19:38:18  23 of 84 PASS not_null_mart_facebook_insights_total_followers .................. [PASS in 4.89s]
+19:38:18  27 of 84 START test not_null_mart_facebook_metrics_date ........................ [RUN]
+19:38:19  24 of 84 PASS not_null_mart_facebook_insights_unique_impressions ............... [PASS in 4.88s]
+19:38:19  28 of 84 START test not_null_mart_facebook_metrics_day_of_week ................. [RUN]
+19:38:22  25 of 84 PASS not_null_mart_facebook_insights_year_month ....................... [PASS in 4.51s]
+19:38:22  29 of 84 START test not_null_mart_facebook_metrics_metric_name ................. [RUN]
+19:38:22  26 of 84 PASS not_null_mart_facebook_insights_year_week ........................ [PASS in 4.57s]
+19:38:22  30 of 84 START test not_null_mart_facebook_metrics_metric_value ................ [RUN]
+19:38:23  27 of 84 PASS not_null_mart_facebook_metrics_date .............................. [PASS in 4.82s]
+19:38:23  31 of 84 START test not_null_mart_facebook_posts_day_of_week ................... [RUN]
+19:38:23  28 of 84 PASS not_null_mart_facebook_metrics_day_of_week ....................... [PASS in 4.48s]
+19:38:23  32 of 84 START test not_null_mart_facebook_posts_post_date ..................... [RUN]
+19:38:26  29 of 84 PASS not_null_mart_facebook_metrics_metric_name ....................... [PASS in 4.20s]
+19:38:26  33 of 84 START test not_null_mart_facebook_posts_post_id ....................... [RUN]
+19:38:27  30 of 84 WARN 1 not_null_mart_facebook_metrics_metric_value .................... [WARN 1 in 4.26s]
+19:38:27  34 of 84 START test not_null_mart_facebook_posts_year .......................... [RUN]
+19:38:27  31 of 84 PASS not_null_mart_facebook_posts_day_of_week ......................... [PASS in 4.40s]
+19:38:27  35 of 84 START test not_null_mart_facebook_posts_year_month .................... [RUN]
+19:38:27  32 of 84 PASS not_null_mart_facebook_posts_post_date ........................... [PASS in 4.28s]
+19:38:27  36 of 84 START test not_null_mart_posts_perfomance_likes ....................... [RUN]
+19:38:31  33 of 84 PASS not_null_mart_facebook_posts_post_id ............................. [PASS in 4.56s]
+19:38:31  37 of 84 START test not_null_mart_posts_perfomance_post_date ................... [RUN]
+19:38:31  34 of 84 PASS not_null_mart_facebook_posts_year ................................ [PASS in 4.30s]
+19:38:31  38 of 84 START test not_null_mart_posts_perfomance_post_id ..................... [RUN]
+19:38:32  35 of 84 PASS not_null_mart_facebook_posts_year_month .......................... [PASS in 4.29s]
+19:38:32  39 of 84 START test not_null_mart_posts_perfomance_posted_at ................... [RUN]
+19:38:32  36 of 84 PASS not_null_mart_posts_perfomance_likes ............................. [PASS in 4.43s]
+19:38:32  40 of 84 START test not_null_mart_social_followers_snapshot_follower_count ..... [RUN]
+19:38:35  37 of 84 PASS not_null_mart_posts_perfomance_post_date ......................... [PASS in 4.36s]
+19:38:35  41 of 84 START test not_null_mart_social_followers_snapshot_platform ........... [RUN]
+19:38:35  38 of 84 PASS not_null_mart_posts_perfomance_post_id ........................... [PASS in 4.49s]
+19:38:35  42 of 84 START test not_null_mart_social_followers_snapshot_snapshot_date ...... [RUN]
+19:38:36  39 of 84 PASS not_null_mart_posts_perfomance_posted_at ......................... [PASS in 4.40s]
+19:38:36  43 of 84 START test not_null_mart_social_followers_snapshot_total_views ........ [RUN]
+19:38:36  40 of 84 PASS not_null_mart_social_followers_snapshot_follower_count ........... [PASS in 4.22s]
+19:38:36  44 of 84 START test not_null_mart_social_overview_platform ..................... [RUN]
+19:38:41  41 of 84 PASS not_null_mart_social_followers_snapshot_platform ................. [PASS in 5.32s]
+19:38:41  45 of 84 START test not_null_mart_social_overview_total_comments ............... [RUN]
+19:38:41  42 of 84 PASS not_null_mart_social_followers_snapshot_snapshot_date ............ [PASS in 5.20s]
+19:38:41  46 of 84 START test not_null_mart_social_overview_total_followers .............. [RUN]
+19:38:41  43 of 84 WARN 255 not_null_mart_social_followers_snapshot_total_views .......... [WARN 255 in 5.18s]
+19:38:41  47 of 84 START test not_null_mart_social_overview_total_likes .................. [RUN]
+19:38:41  44 of 84 PASS not_null_mart_social_overview_platform ........................... [PASS in 5.17s]
+19:38:41  48 of 84 START test not_null_mart_social_overview_total_posts .................. [RUN]
+19:38:45  45 of 84 PASS not_null_mart_social_overview_total_comments ..................... [PASS in 4.42s]
+19:38:45  49 of 84 START test not_null_mart_social_overview_total_views .................. [RUN]
+19:38:45  46 of 84 PASS not_null_mart_social_overview_total_followers .................... [PASS in 4.43s]
+19:38:45  50 of 84 START test not_null_mart_tiktok_activity_overlap_activity_date ........ [RUN]
+19:38:46  47 of 84 PASS not_null_mart_social_overview_total_likes ........................ [PASS in 4.31s]
+19:38:46  51 of 84 START test not_null_mart_tiktok_activity_overlap_avg_post_likes ....... [RUN]
+19:38:46  48 of 84 PASS not_null_mart_social_overview_total_posts ........................ [PASS in 4.25s]
+19:38:46  52 of 84 START test not_null_mart_tiktok_activity_overlap_day_number ........... [RUN]
+19:38:49  50 of 84 PASS not_null_mart_tiktok_activity_overlap_activity_date .............. [PASS in 4.29s]
+19:38:49  53 of 84 START test not_null_mart_tiktok_activity_overlap_day_of_week .......... [RUN]
+19:38:50  49 of 84 PASS not_null_mart_social_overview_total_views ........................ [PASS in 4.66s]
+19:38:50  54 of 84 START test not_null_mart_tiktok_activity_overlap_posts_on_day ......... [RUN]
+19:38:50  52 of 84 PASS not_null_mart_tiktok_activity_overlap_day_number ................. [PASS in 4.33s]
+19:38:50  55 of 84 START test not_null_mart_tiktok_activity_overlap_total_post_likes ..... [RUN]
+19:38:50  51 of 84 PASS not_null_mart_tiktok_activity_overlap_avg_post_likes ............. [PASS in 4.45s]
+19:38:50  56 of 84 START test not_null_mart_tiktok_followers_cumulative_followers ........ [RUN]
+19:38:54  53 of 84 PASS not_null_mart_tiktok_activity_overlap_day_of_week ................ [PASS in 4.57s]
+19:38:54  57 of 84 START test not_null_mart_tiktok_followers_follow_date ................. [RUN]
+19:38:54  54 of 84 PASS not_null_mart_tiktok_activity_overlap_posts_on_day ............... [PASS in 4.63s]
+19:38:54  58 of 84 START test not_null_mart_tiktok_followers_new_followers ............... [RUN]
+19:38:55  55 of 84 PASS not_null_mart_tiktok_activity_overlap_total_post_likes ........... [PASS in 4.71s]
+19:38:55  59 of 84 START test not_null_mart_tiktok_live_perfomance_duration_mins ......... [RUN]
+19:38:55  56 of 84 PASS not_null_mart_tiktok_followers_cumulative_followers .............. [PASS in 4.85s]
+19:38:55  60 of 84 START test not_null_mart_tiktok_live_perfomance_end_time .............. [RUN]
+19:38:59  57 of 84 PASS not_null_mart_tiktok_followers_follow_date ....................... [PASS in 5.02s]
+19:38:59  61 of 84 START test not_null_mart_tiktok_live_perfomance_live_date ............. [RUN]
+19:39:00  59 of 84 PASS not_null_mart_tiktok_live_perfomance_duration_mins ............... [PASS in 5.07s]
+19:39:00  62 of 84 START test not_null_mart_tiktok_live_perfomance_room_id ............... [RUN]
+19:39:00  60 of 84 PASS not_null_mart_tiktok_live_perfomance_end_time .................... [PASS in 5.02s]
+19:39:00  63 of 84 START test not_null_mart_tiktok_live_perfomance_start_time ............ [RUN]
+19:39:00  58 of 84 PASS not_null_mart_tiktok_followers_new_followers ..................... [PASS in 5.64s]
+19:39:00  64 of 84 START test not_null_mart_youtube_perfomance_day_of_week ............... [RUN]
+19:39:03  61 of 84 PASS not_null_mart_tiktok_live_perfomance_live_date ................... [PASS in 4.36s]
+19:39:03  65 of 84 START test not_null_mart_youtube_perfomance_published_at .............. [RUN]
+19:39:05  62 of 84 PASS not_null_mart_tiktok_live_perfomance_room_id ..................... [PASS in 4.94s]
+19:39:05  66 of 84 START test not_null_mart_youtube_perfomance_video_id .................. [RUN]
+19:39:05  63 of 84 PASS not_null_mart_tiktok_live_perfomance_start_time .................. [PASS in 5.17s]
+19:39:05  67 of 84 START test not_null_mart_youtube_perfomance_video_title ............... [RUN]
+19:39:05  64 of 84 PASS not_null_mart_youtube_perfomance_day_of_week ..................... [PASS in 5.17s]
+19:39:05  68 of 84 START test not_null_mart_youtube_perfomance_view_count ................ [RUN]
+19:39:08  65 of 84 PASS not_null_mart_youtube_perfomance_published_at .................... [PASS in 4.29s]
+19:39:08  69 of 84 START test not_null_mart_youtube_perfomance_year_month ................ [RUN]
+19:39:09  66 of 84 PASS not_null_mart_youtube_perfomance_video_id ........................ [PASS in 4.43s]
+19:39:09  70 of 84 START test not_null_mart_youtube_videos_day_of_week ................... [RUN]
+19:39:09  67 of 84 PASS not_null_mart_youtube_perfomance_video_title ..................... [PASS in 4.30s]
+19:39:09  71 of 84 START test not_null_mart_youtube_videos_day_of_week_num ............... [RUN]
+19:39:10  68 of 84 PASS not_null_mart_youtube_perfomance_view_count ...................... [PASS in 4.56s]
+19:39:10  72 of 84 START test not_null_mart_youtube_videos_published_at .................. [RUN]
+19:39:12  69 of 84 PASS not_null_mart_youtube_perfomance_year_month ...................... [PASS in 4.11s]
+19:39:12  73 of 84 START test not_null_mart_youtube_videos_video_id ...................... [RUN]
+19:39:13  70 of 84 PASS not_null_mart_youtube_videos_day_of_week ......................... [PASS in 4.18s]
+19:39:13  74 of 84 START test not_null_mart_youtube_videos_video_title ................... [RUN]
+19:39:14  71 of 84 PASS not_null_mart_youtube_videos_day_of_week_num ..................... [PASS in 4.33s]
+19:39:14  75 of 84 START test not_null_mart_youtube_videos_year_month .................... [RUN]
+19:39:15  72 of 84 PASS not_null_mart_youtube_videos_published_at ........................ [PASS in 5.02s]
+19:39:15  76 of 84 START test unique_mart_facebook_insights_date ......................... [RUN]
+19:39:16  73 of 84 PASS not_null_mart_youtube_videos_video_id ............................ [PASS in 4.44s]
+19:39:16  77 of 84 START test unique_mart_facebook_posts_post_id ......................... [RUN]
+19:39:18  74 of 84 PASS not_null_mart_youtube_videos_video_title ......................... [PASS in 4.75s]
+19:39:18  78 of 84 START test unique_mart_posts_perfomance_post_id ....................... [RUN]
+19:39:19  75 of 84 PASS not_null_mart_youtube_videos_year_month .......................... [PASS in 4.97s]
+19:39:19  79 of 84 START test unique_mart_social_overview_platform ....................... [RUN]
+19:39:19  76 of 84 PASS unique_mart_facebook_insights_date ............................... [PASS in 4.52s]
+19:39:19  80 of 84 START test unique_mart_tiktok_activity_overlap_activity_date .......... [RUN]
+19:39:20  77 of 84 PASS unique_mart_facebook_posts_post_id ............................... [PASS in 4.07s]
+19:39:20  81 of 84 START test unique_mart_tiktok_followers_follow_date ................... [RUN]
+19:39:22  78 of 84 PASS unique_mart_posts_perfomance_post_id ............................. [PASS in 4.45s]
+19:39:22  82 of 84 START test unique_mart_tiktok_live_perfomance_room_id ................. [RUN]
+19:39:23  79 of 84 PASS unique_mart_social_overview_platform ............................. [PASS in 4.62s]
+19:39:23  83 of 84 START test unique_mart_youtube_perfomance_video_id .................... [RUN]
+19:39:24  80 of 84 PASS unique_mart_tiktok_activity_overlap_activity_date ................ [PASS in 4.38s]
+19:39:24  84 of 84 START test unique_mart_youtube_videos_video_id ........................ [RUN]
+19:39:24  81 of 84 PASS unique_mart_tiktok_followers_follow_date ......................... [PASS in 4.20s]
+19:39:27  82 of 84 PASS unique_mart_tiktok_live_perfomance_room_id ....................... [PASS in 4.05s]
+19:39:28  83 of 84 PASS unique_mart_youtube_perfomance_video_id .......................... [PASS in 4.29s]
+19:39:28  84 of 84 PASS unique_mart_youtube_videos_video_id .............................. [PASS in 4.28s]
+19:39:28  
+19:39:28  Finished running 84 data tests in 0 hours 1 minutes and 42.07 seconds (102.07s).
+19:39:28  
+19:39:28  Completed with 2 warnings:
+19:39:28  
+19:39:28  Warning in test not_null_mart_facebook_metrics_metric_value (models\staging\schema.yml)
+19:39:28  Got 1 result, configured to warn if != 0
+19:39:28  
+19:39:28    compiled code at target\compiled\goshen\models\staging\schema.yml\not_null_mart_facebook_metrics_metric_value.sql
+19:39:28  
+19:39:28  Warning in test not_null_mart_social_followers_snapshot_total_views (models\staging\schema.yml)
+19:39:28  Got 255 results, configured to warn if != 0
+19:39:28  
+19:39:28    compiled code at target\compiled\goshen\models\staging\schema.yml\not_null_mart_social_followers_snapshot_total_views.sql
+19:39:28  
+19:39:28  Done. PASS=82 WARN=2 ERROR=0 SKIP=0 NO-OP=0 TOTAL=84
+Pipeline completed 2026/05/23 21:39:31,24 
+Traceback (most recent call last):
+  File "C:\Users\gadis\goshen\run_ingestion.py", line 12, in <module>
+    print(f"\n\U0001f680 Running {script}...")
+  File "C:\Users\gadis\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 2: character maps to <undefined>
+19:56:09  Running with dbt=1.11.9
+19:56:12  Registered adapter: bigquery=1.11.1
+19:56:14  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 3 unused configuration paths:
+- models.goshen.staging.members
+- models.goshen.staging.instagram
+- models.goshen.staging.attendance
+19:56:14  Found 22 models, 84 data tests, 11 sources, 657 macros
+19:56:14  
+19:56:14  Concurrency: 4 threads (target='dev')
+19:56:14  
+19:56:21  1 of 22 START sql view model analytics_staging.stg_facebook_insights ........... [RUN]
+19:56:21  2 of 22 START sql view model analytics_staging.stg_facebook_posts .............. [RUN]
+19:56:21  3 of 22 START sql view model analytics_staging.stg_tiktok_followers ............ [RUN]
+19:56:21  4 of 22 START sql view model analytics_staging.stg_tiktok_live ................. [RUN]
+19:56:27  1 of 22 OK created sql view model analytics_staging.stg_facebook_insights ...... [CREATE VIEW (0 processed) in 5.77s]
+19:56:27  4 of 22 OK created sql view model analytics_staging.stg_tiktok_live ............ [CREATE VIEW (0 processed) in 5.77s]
+19:56:27  2 of 22 OK created sql view model analytics_staging.stg_facebook_posts ......... [CREATE VIEW (0 processed) in 5.78s]
+19:56:27  5 of 22 START sql view model analytics_staging.stg_tiktok_live_comments ........ [RUN]
+19:56:27  6 of 22 START sql view model analytics_staging.stg_tiktok_posts ................ [RUN]
+19:56:27  7 of 22 START sql view model analytics_staging.stg_tiktok_watch_live_history ... [RUN]
+19:56:28  3 of 22 OK created sql view model analytics_staging.stg_tiktok_followers ....... [CREATE VIEW (0 processed) in 6.80s]
+19:56:28  8 of 22 START sql view model analytics_staging.stg_youtube_channel ............. [RUN]
+19:56:32  7 of 22 OK created sql view model analytics_staging.stg_tiktok_watch_live_history  [CREATE VIEW (0 processed) in 5.41s]
+19:56:32  9 of 22 START sql view model analytics_staging.stg_youtube_comments ............ [RUN]
+19:56:32  6 of 22 OK created sql view model analytics_staging.stg_tiktok_posts ........... [CREATE VIEW (0 processed) in 5.45s]
+19:56:32  10 of 22 START sql view model analytics_staging.stg_youtube_videos ............. [RUN]
+19:56:32  5 of 22 OK created sql view model analytics_staging.stg_tiktok_live_comments ... [CREATE VIEW (0 processed) in 5.49s]
+19:56:32  11 of 22 START sql table model analytics_marts.mart_facebook_insights .......... [RUN]
+19:56:34  8 of 22 OK created sql view model analytics_staging.stg_youtube_channel ........ [CREATE VIEW (0 processed) in 5.73s]
+19:56:34  12 of 22 START sql table model analytics_marts.mart_facebook_metrics ........... [RUN]
+19:56:37  10 of 22 OK created sql view model analytics_staging.stg_youtube_videos ........ [CREATE VIEW (0 processed) in 4.69s]
+19:56:37  13 of 22 START sql table model analytics_marts.mart_tiktok_live_perfomance ..... [RUN]
+19:56:37  9 of 22 OK created sql view model analytics_staging.stg_youtube_comments ....... [CREATE VIEW (0 processed) in 4.99s]
+19:56:37  14 of 22 START sql table model analytics_marts.mart_facebook_posts ............. [RUN]
+19:56:40  12 of 22 OK created sql table model analytics_marts.mart_facebook_metrics ...... [CREATE TABLE (112.0 rows, 15.5 KiB processed) in 6.48s]
+19:56:40  15 of 22 START sql table model analytics_marts.mart_tiktok_followers ........... [RUN]
+19:56:42  11 of 22 OK created sql table model analytics_marts.mart_facebook_insights ..... [CREATE TABLE (16.0 rows, 15.5 KiB processed) in 9.17s]
+19:56:42  16 of 22 START sql table model analytics_marts.mart_posts_perfomance ........... [RUN]
+19:56:44  13 of 22 OK created sql table model analytics_marts.mart_tiktok_live_perfomance  [CREATE TABLE (36.0 rows, 75.6 KiB processed) in 7.09s]
+19:56:44  17 of 22 START sql table model analytics_marts.mart_youtube_perfomance ......... [RUN]
+19:56:45  14 of 22 OK created sql table model analytics_marts.mart_facebook_posts ........ [CREATE TABLE (702.0 rows, 2.4 MiB processed) in 7.99s]
+19:56:45  18 of 22 START sql table model analytics_marts.mart_youtube_videos ............. [RUN]
+19:56:47  16 of 22 OK created sql table model analytics_marts.mart_posts_perfomance ...... [CREATE TABLE (75.0 rows, 109.7 KiB processed) in 5.96s]
+19:56:47  19 of 22 START sql table model analytics_marts.mart_tiktok_activity_overlap .... [RUN]
+19:56:50  17 of 22 OK created sql table model analytics_marts.mart_youtube_perfomance .... [CREATE TABLE (61.0 rows, 335.8 KiB processed) in 6.43s]
+19:56:52  18 of 22 OK created sql table model analytics_marts.mart_youtube_videos ........ [CREATE TABLE (61.0 rows, 358.3 KiB processed) in 6.56s]
+19:56:53  15 of 22 OK created sql table model analytics_marts.mart_tiktok_followers ...... [CREATE TABLE (255.0 rows, 2.1 MiB processed) in 12.95s]
+19:56:53  20 of 22 START sql table model analytics_marts.mart_executive_summary .......... [RUN]
+19:56:53  21 of 22 START sql table model analytics_marts.mart_social_followers_snapshot .. [RUN]
+19:56:53  22 of 22 START sql table model analytics_marts.mart_social_overview ............ [RUN]
+19:56:54  19 of 22 OK created sql table model analytics_marts.mart_tiktok_activity_overlap  [CREATE TABLE (73.0 rows, 2.0 KiB processed) in 6.71s]
+19:57:00  20 of 22 OK created sql table model analytics_marts.mart_executive_summary ..... [CREATE TABLE (3.0 rows, 5.3 KiB processed) in 7.20s]
+19:57:00  22 of 22 OK created sql table model analytics_marts.mart_social_overview ....... [CREATE TABLE (3.0 rows, 15.9 KiB processed) in 7.26s]
+19:57:01  21 of 22 OK created sql table model analytics_marts.mart_social_followers_snapshot  [CREATE TABLE (270.0 rows, 20.5 KiB processed) in 7.85s]
+19:57:01  
+19:57:01  Finished running 12 table models, 10 view models in 0 hours 0 minutes and 46.64 seconds (46.64s).
+19:57:01  
+19:57:01  Completed successfully
+19:57:01  
+19:57:01  Done. PASS=22 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=22
+19:57:08  Running with dbt=1.11.9
+19:57:11  Registered adapter: bigquery=1.11.1
+19:57:12  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 3 unused configuration paths:
+- models.goshen.staging.attendance
+- models.goshen.staging.instagram
+- models.goshen.staging.members
+19:57:13  Found 22 models, 84 data tests, 11 sources, 657 macros
+19:57:13  
+19:57:13  Concurrency: 4 threads (target='dev')
+19:57:13  
+19:57:17  1 of 84 START test accepted_values_mart_facebook_insights_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:57:17  2 of 84 START test accepted_values_mart_facebook_metrics_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:57:17  3 of 84 START test accepted_values_mart_facebook_posts_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:57:17  4 of 84 START test accepted_values_mart_social_overview_platform__facebook__youtube__tiktok__instagram  [RUN]
+19:57:23  1 of 84 PASS accepted_values_mart_facebook_insights_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 6.04s]
+19:57:23  5 of 84 START test accepted_values_mart_tiktok_activity_overlap_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:57:23  4 of 84 PASS accepted_values_mart_social_overview_platform__facebook__youtube__tiktok__instagram  [PASS in 6.07s]
+19:57:23  6 of 84 START test accepted_values_mart_youtube_perfomance_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:57:23  3 of 84 PASS accepted_values_mart_facebook_posts_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 6.19s]
+19:57:23  7 of 84 START test accepted_values_mart_youtube_videos_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+19:57:24  2 of 84 PASS accepted_values_mart_facebook_metrics_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 7.16s]
+19:57:24  8 of 84 START test dbt_utils_expression_is_true_mart_posts_perfomance_likes___0  [RUN]
+19:57:29  6 of 84 PASS accepted_values_mart_youtube_perfomance_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.74s]
+19:57:29  9 of 84 START test dbt_utils_expression_is_true_mart_social_followers_snapshot_follower_count___0  [RUN]
+19:57:29  5 of 84 PASS accepted_values_mart_tiktok_activity_overlap_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.91s]
+19:57:29  10 of 84 START test dbt_utils_expression_is_true_mart_social_followers_snapshot_total_views___0  [RUN]
+19:57:29  7 of 84 PASS accepted_values_mart_youtube_videos_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.98s]
+19:57:29  11 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_comments___0  [RUN]
+19:57:30  8 of 84 PASS dbt_utils_expression_is_true_mart_posts_perfomance_likes___0 ...... [PASS in 5.38s]
+19:57:30  12 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_followers___0  [RUN]
+19:57:34  9 of 84 PASS dbt_utils_expression_is_true_mart_social_followers_snapshot_follower_count___0  [PASS in 5.24s]
+19:57:34  13 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_likes___0  [RUN]
+19:57:34  10 of 84 PASS dbt_utils_expression_is_true_mart_social_followers_snapshot_total_views___0  [PASS in 5.26s]
+19:57:34  14 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_posts___0  [RUN]
+19:57:35  11 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_comments___0  [PASS in 5.34s]
+19:57:35  15 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_views___0  [RUN]
+19:57:35  12 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_followers___0  [PASS in 5.17s]
+19:57:35  16 of 84 START test dbt_utils_expression_is_true_mart_tiktok_activity_overlap_posts_on_day___0  [RUN]
+19:57:39  13 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_likes___0  [PASS in 4.76s]
+19:57:39  17 of 84 START test dbt_utils_expression_is_true_mart_tiktok_activity_overlap_total_post_likes___0  [RUN]
+19:57:39  14 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_posts___0  [PASS in 4.94s]
+19:57:39  18 of 84 START test dbt_utils_expression_is_true_mart_tiktok_followers_cumulative_followers___0  [RUN]
+19:57:40  15 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_views___0  [PASS in 4.92s]
+19:57:40  19 of 84 START test dbt_utils_expression_is_true_mart_tiktok_live_perfomance_duration_mins___0  [RUN]
+19:57:40  16 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_activity_overlap_posts_on_day___0  [PASS in 4.92s]
+19:57:40  20 of 84 START test dbt_utils_expression_is_true_mart_youtube_perfomance_view_count___0  [RUN]
+19:57:44  17 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_activity_overlap_total_post_likes___0  [PASS in 4.89s]
+19:57:44  21 of 84 START test not_null_mart_facebook_insights_date ....................... [RUN]
+19:57:45  18 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_followers_cumulative_followers___0  [PASS in 5.39s]
+19:57:45  22 of 84 START test not_null_mart_facebook_insights_day_of_week ................ [RUN]
+19:57:45  19 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_live_perfomance_duration_mins___0  [PASS in 5.50s]
+19:57:45  23 of 84 START test not_null_mart_facebook_insights_total_followers ............ [RUN]
+19:57:45  20 of 84 PASS dbt_utils_expression_is_true_mart_youtube_perfomance_view_count___0  [PASS in 5.42s]
+19:57:45  24 of 84 START test not_null_mart_facebook_insights_unique_impressions ......... [RUN]
+19:57:49  21 of 84 PASS not_null_mart_facebook_insights_date ............................. [PASS in 5.00s]
+19:57:49  25 of 84 START test not_null_mart_facebook_insights_year_month ................. [RUN]
+19:57:50  22 of 84 PASS not_null_mart_facebook_insights_day_of_week ...................... [PASS in 4.97s]
+19:57:50  26 of 84 START test not_null_mart_facebook_insights_year_week .................. [RUN]
+19:57:50  24 of 84 PASS not_null_mart_facebook_insights_unique_impressions ............... [PASS in 5.17s]
+19:57:50  27 of 84 START test not_null_mart_facebook_metrics_date ........................ [RUN]
+19:57:51  23 of 84 PASS not_null_mart_facebook_insights_total_followers .................. [PASS in 5.55s]
+19:57:51  28 of 84 START test not_null_mart_facebook_metrics_day_of_week ................. [RUN]
+19:57:54  25 of 84 PASS not_null_mart_facebook_insights_year_month ....................... [PASS in 4.93s]
+19:57:54  29 of 84 START test not_null_mart_facebook_metrics_metric_name ................. [RUN]
+19:57:55  26 of 84 PASS not_null_mart_facebook_insights_year_week ........................ [PASS in 5.30s]
+19:57:55  30 of 84 START test not_null_mart_facebook_metrics_metric_value ................ [RUN]
+19:57:56  27 of 84 PASS not_null_mart_facebook_metrics_date .............................. [PASS in 5.41s]
+19:57:56  31 of 84 START test not_null_mart_facebook_posts_day_of_week ................... [RUN]
+19:57:56  28 of 84 PASS not_null_mart_facebook_metrics_day_of_week ....................... [PASS in 5.14s]
+19:57:56  32 of 84 START test not_null_mart_facebook_posts_post_date ..................... [RUN]
+19:57:58  29 of 84 PASS not_null_mart_facebook_metrics_metric_name ....................... [PASS in 4.38s]
+19:57:58  33 of 84 START test not_null_mart_facebook_posts_post_id ....................... [RUN]
+19:57:59  30 of 84 WARN 1 not_null_mart_facebook_metrics_metric_value .................... [WARN 1 in 4.50s]
+19:57:59  34 of 84 START test not_null_mart_facebook_posts_year .......................... [RUN]
+19:58:00  32 of 84 PASS not_null_mart_facebook_posts_post_date ........................... [PASS in 4.64s]
+19:58:00  35 of 84 START test not_null_mart_facebook_posts_year_month .................... [RUN]
+19:58:01  31 of 84 PASS not_null_mart_facebook_posts_day_of_week ......................... [PASS in 4.69s]
+19:58:01  36 of 84 START test not_null_mart_posts_perfomance_likes ....................... [RUN]
+19:58:03  33 of 84 PASS not_null_mart_facebook_posts_post_id ............................. [PASS in 4.98s]
+19:58:03  37 of 84 START test not_null_mart_posts_perfomance_post_date ................... [RUN]
+19:58:04  34 of 84 PASS not_null_mart_facebook_posts_year ................................ [PASS in 4.89s]
+19:58:04  38 of 84 START test not_null_mart_posts_perfomance_post_id ..................... [RUN]
+19:58:06  35 of 84 PASS not_null_mart_facebook_posts_year_month .......................... [PASS in 5.50s]
+19:58:06  36 of 84 PASS not_null_mart_posts_perfomance_likes ............................. [PASS in 5.46s]
+19:58:06  39 of 84 START test not_null_mart_posts_perfomance_posted_at ................... [RUN]
+19:58:06  40 of 84 START test not_null_mart_social_followers_snapshot_follower_count ..... [RUN]
+19:58:08  37 of 84 PASS not_null_mart_posts_perfomance_post_date ......................... [PASS in 4.97s]
+19:58:08  41 of 84 START test not_null_mart_social_followers_snapshot_platform ........... [RUN]
+19:58:10  38 of 84 PASS not_null_mart_posts_perfomance_post_id ........................... [PASS in 5.18s]
+19:58:10  42 of 84 START test not_null_mart_social_followers_snapshot_snapshot_date ...... [RUN]
+19:58:11  39 of 84 PASS not_null_mart_posts_perfomance_posted_at ......................... [PASS in 5.11s]
+19:58:11  43 of 84 START test not_null_mart_social_followers_snapshot_total_views ........ [RUN]
+19:58:11  40 of 84 PASS not_null_mart_social_followers_snapshot_follower_count ........... [PASS in 5.31s]
+19:58:11  44 of 84 START test not_null_mart_social_overview_platform ..................... [RUN]
+19:58:13  41 of 84 PASS not_null_mart_social_followers_snapshot_platform ................. [PASS in 4.73s]
+19:58:13  45 of 84 START test not_null_mart_social_overview_total_comments ............... [RUN]
+19:58:14  42 of 84 PASS not_null_mart_social_followers_snapshot_snapshot_date ............ [PASS in 4.87s]
+19:58:14  46 of 84 START test not_null_mart_social_overview_total_followers .............. [RUN]
+19:58:16  43 of 84 WARN 255 not_null_mart_social_followers_snapshot_total_views .......... [WARN 255 in 5.14s]
+19:58:16  47 of 84 START test not_null_mart_social_overview_total_likes .................. [RUN]
+19:58:16  44 of 84 PASS not_null_mart_social_overview_platform ........................... [PASS in 5.02s]
+19:58:16  48 of 84 START test not_null_mart_social_overview_total_posts .................. [RUN]
+19:58:17  45 of 84 PASS not_null_mart_social_overview_total_comments ..................... [PASS in 4.59s]
+19:58:17  49 of 84 START test not_null_mart_social_overview_total_views .................. [RUN]
+19:58:19  46 of 84 PASS not_null_mart_social_overview_total_followers .................... [PASS in 4.54s]
+19:58:19  50 of 84 START test not_null_mart_tiktok_activity_overlap_activity_date ........ [RUN]
+19:58:21  47 of 84 PASS not_null_mart_social_overview_total_likes ........................ [PASS in 4.69s]
+19:58:21  51 of 84 START test not_null_mart_tiktok_activity_overlap_avg_post_likes ....... [RUN]
+19:58:22  48 of 84 PASS not_null_mart_social_overview_total_posts ........................ [PASS in 5.40s]
+19:58:22  52 of 84 START test not_null_mart_tiktok_activity_overlap_day_number ........... [RUN]
+19:58:22  49 of 84 PASS not_null_mart_social_overview_total_views ........................ [PASS in 4.37s]
+19:58:22  53 of 84 START test not_null_mart_tiktok_activity_overlap_day_of_week .......... [RUN]
+19:58:24  50 of 84 PASS not_null_mart_tiktok_activity_overlap_activity_date .............. [PASS in 4.66s]
+19:58:24  54 of 84 START test not_null_mart_tiktok_activity_overlap_posts_on_day ......... [RUN]
+19:58:26  51 of 84 PASS not_null_mart_tiktok_activity_overlap_avg_post_likes ............. [PASS in 4.82s]
+19:58:26  55 of 84 START test not_null_mart_tiktok_activity_overlap_total_post_likes ..... [RUN]
+19:58:27  52 of 84 PASS not_null_mart_tiktok_activity_overlap_day_number ................. [PASS in 5.20s]
+19:58:27  56 of 84 START test not_null_mart_tiktok_followers_cumulative_followers ........ [RUN]
+19:58:28  53 of 84 PASS not_null_mart_tiktok_activity_overlap_day_of_week ................ [PASS in 5.96s]
+19:58:28  57 of 84 START test not_null_mart_tiktok_followers_follow_date ................. [RUN]
+19:58:28  54 of 84 PASS not_null_mart_tiktok_activity_overlap_posts_on_day ............... [PASS in 4.82s]
+19:58:28  58 of 84 START test not_null_mart_tiktok_followers_new_followers ............... [RUN]
+19:58:31  55 of 84 PASS not_null_mart_tiktok_activity_overlap_total_post_likes ........... [PASS in 5.07s]
+19:58:31  59 of 84 START test not_null_mart_tiktok_live_perfomance_duration_mins ......... [RUN]
+19:58:34  56 of 84 PASS not_null_mart_tiktok_followers_cumulative_followers .............. [PASS in 6.58s]
+19:58:34  60 of 84 START test not_null_mart_tiktok_live_perfomance_end_time .............. [RUN]
+19:58:35  57 of 84 PASS not_null_mart_tiktok_followers_follow_date ....................... [PASS in 6.95s]
+19:58:35  61 of 84 START test not_null_mart_tiktok_live_perfomance_live_date ............. [RUN]
+19:58:35  58 of 84 PASS not_null_mart_tiktok_followers_new_followers ..................... [PASS in 6.88s]
+19:58:35  62 of 84 START test not_null_mart_tiktok_live_perfomance_room_id ............... [RUN]
+19:58:37  59 of 84 PASS not_null_mart_tiktok_live_perfomance_duration_mins ............... [PASS in 6.16s]
+19:58:37  63 of 84 START test not_null_mart_tiktok_live_perfomance_start_time ............ [RUN]
+19:58:39  60 of 84 PASS not_null_mart_tiktok_live_perfomance_end_time .................... [PASS in 5.36s]
+19:58:39  64 of 84 START test not_null_mart_youtube_perfomance_day_of_week ............... [RUN]
+19:58:40  61 of 84 PASS not_null_mart_tiktok_live_perfomance_live_date ................... [PASS in 5.10s]
+19:58:40  65 of 84 START test not_null_mart_youtube_perfomance_published_at .............. [RUN]
+19:58:42  62 of 84 PASS not_null_mart_tiktok_live_perfomance_room_id ..................... [PASS in 6.26s]
+19:58:42  66 of 84 START test not_null_mart_youtube_perfomance_video_id .................. [RUN]
+19:58:46  63 of 84 PASS not_null_mart_tiktok_live_perfomance_start_time .................. [PASS in 8.89s]
+19:58:46  67 of 84 START test not_null_mart_youtube_perfomance_video_title ............... [RUN]
+19:58:49  64 of 84 PASS not_null_mart_youtube_perfomance_day_of_week ..................... [PASS in 9.99s]
+19:58:49  68 of 84 START test not_null_mart_youtube_perfomance_view_count ................ [RUN]
+19:58:50  66 of 84 PASS not_null_mart_youtube_perfomance_video_id ........................ [PASS in 8.76s]
+19:58:50  69 of 84 START test not_null_mart_youtube_perfomance_year_month ................ [RUN]
+19:58:52  65 of 84 PASS not_null_mart_youtube_perfomance_published_at .................... [PASS in 11.62s]
+19:58:52  70 of 84 START test not_null_mart_youtube_videos_day_of_week ................... [RUN]
+19:58:57  67 of 84 PASS not_null_mart_youtube_perfomance_video_title ..................... [PASS in 10.92s]
+19:58:57  71 of 84 START test not_null_mart_youtube_videos_day_of_week_num ............... [RUN]
+19:58:58  68 of 84 PASS not_null_mart_youtube_perfomance_view_count ...................... [PASS in 8.79s]
+19:58:58  72 of 84 START test not_null_mart_youtube_videos_published_at .................. [RUN]
+19:58:58  69 of 84 PASS not_null_mart_youtube_perfomance_year_month ...................... [PASS in 7.98s]
+19:58:58  73 of 84 START test not_null_mart_youtube_videos_video_id ...................... [RUN]
+19:58:59  70 of 84 PASS not_null_mart_youtube_videos_day_of_week ......................... [PASS in 7.54s]
+19:58:59  74 of 84 START test not_null_mart_youtube_videos_video_title ................... [RUN]
+19:59:03  71 of 84 PASS not_null_mart_youtube_videos_day_of_week_num ..................... [PASS in 5.99s]
+19:59:03  75 of 84 START test not_null_mart_youtube_videos_year_month .................... [RUN]
+19:59:04  72 of 84 PASS not_null_mart_youtube_videos_published_at ........................ [PASS in 5.93s]
+19:59:04  76 of 84 START test unique_mart_facebook_insights_date ......................... [RUN]
+19:59:04  73 of 84 PASS not_null_mart_youtube_videos_video_id ............................ [PASS in 6.00s]
+19:59:04  77 of 84 START test unique_mart_facebook_posts_post_id ......................... [RUN]
+19:59:06  74 of 84 PASS not_null_mart_youtube_videos_video_title ......................... [PASS in 6.68s]
+19:59:06  78 of 84 START test unique_mart_posts_perfomance_post_id ....................... [RUN]
+19:59:11  75 of 84 PASS not_null_mart_youtube_videos_year_month .......................... [PASS in 7.55s]
+19:59:11  79 of 84 START test unique_mart_social_overview_platform ....................... [RUN]
+19:59:11  76 of 84 PASS unique_mart_facebook_insights_date ............................... [PASS in 7.38s]
+19:59:11  80 of 84 START test unique_mart_tiktok_activity_overlap_activity_date .......... [RUN]
+19:59:12  77 of 84 PASS unique_mart_facebook_posts_post_id ............................... [PASS in 7.55s]
+19:59:12  81 of 84 START test unique_mart_tiktok_followers_follow_date ................... [RUN]
+19:59:13  78 of 84 PASS unique_mart_posts_perfomance_post_id ............................. [PASS in 6.97s]
+19:59:13  82 of 84 START test unique_mart_tiktok_live_perfomance_room_id ................. [RUN]
+19:59:18  80 of 84 PASS unique_mart_tiktok_activity_overlap_activity_date ................ [PASS in 7.23s]
+19:59:18  83 of 84 START test unique_mart_youtube_perfomance_video_id .................... [RUN]
+19:59:19  79 of 84 PASS unique_mart_social_overview_platform ............................. [PASS in 8.34s]
+19:59:19  84 of 84 START test unique_mart_youtube_videos_video_id ........................ [RUN]
+19:59:21  81 of 84 PASS unique_mart_tiktok_followers_follow_date ......................... [PASS in 9.11s]
+19:59:22  82 of 84 PASS unique_mart_tiktok_live_perfomance_room_id ....................... [PASS in 9.19s]
+19:59:28  83 of 84 PASS unique_mart_youtube_perfomance_video_id .......................... [PASS in 9.60s]
+19:59:29  84 of 84 PASS unique_mart_youtube_videos_video_id .............................. [PASS in 10.18s]
+19:59:29  
+19:59:29  Finished running 84 data tests in 0 hours 2 minutes and 16.39 seconds (136.39s).
+19:59:30  
+19:59:30  Completed with 2 warnings:
+19:59:30  
+19:59:30  Warning in test not_null_mart_facebook_metrics_metric_value (models\staging\schema.yml)
+19:59:30  Got 1 result, configured to warn if != 0
+19:59:30  
+19:59:30    compiled code at target\compiled\goshen\models\staging\schema.yml\not_null_mart_facebook_metrics_metric_value.sql
+19:59:30  
+19:59:30  Warning in test not_null_mart_social_followers_snapshot_total_views (models\staging\schema.yml)
+19:59:30  Got 255 results, configured to warn if != 0
+19:59:30  
+19:59:30    compiled code at target\compiled\goshen\models\staging\schema.yml\not_null_mart_social_followers_snapshot_total_views.sql
+19:59:30  
+19:59:30  Done. PASS=82 WARN=2 ERROR=0 SKIP=0 NO-OP=0 TOTAL=84
+Pipeline completed 2026/05/23 21:59:34,31 
