@@ -29,7 +29,7 @@ Leadership was making content decisions based on gut feeling.
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                     INGESTION LAYER                             │
-│              Python scripts → Snowflake raw tables              │
+│              Python scripts → BigQuery raw tables │
 │         Orchestrated via Airflow DAGs (cloud-ready)             │
 │         Scheduled locally via Windows Task Scheduler            │
 └─────────────────────────────────────────────────────────────────┘
@@ -56,7 +56,7 @@ Leadership was making content decisions based on gut feeling.
 
 | Layer | Technology |
 |-------|-----------|
-| Data Warehouse | Snowflake |
+| Data Warehouse | BigQuery (Google Cloud) |
 | Transformation | dbt Core 1.11 |
 | Ingestion | Python 3.11 |
 | Orchestration | Apache Airflow (DAGs) + Windows Task Scheduler |
@@ -341,7 +341,7 @@ python -m venv goshen-dbt-env
 source goshen-dbt-env/Scripts/activate  # Windows: activate.bat
 
 # Install dependencies
-pip install dbt-bigquery dbt-utils snowflake-connector-python python-dotenv
+pip install dbt-bigquery dbt-utils google-cloud-bigquery python-dotenv
 
 # Configure environment variables
 cp .env.example .env
