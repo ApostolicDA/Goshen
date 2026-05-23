@@ -4,7 +4,6 @@
 
 A full-stack analytics platform built for a real client — ingesting social media data from 4 sources, modelling it through a production-grade dbt pipeline, and surfacing actionable insights in a multi-page Looker Studio dashboard that drives real content decisions.
 
-**This is not a tutorial project. This is a live, automated, production analytics platform.**
 
 ---
 
