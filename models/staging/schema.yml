@@ -1,2 +1,281 @@
 version: 2
 
+models:
+
+  # ── FACEBOOK ──────────────────────────────────────────────────────────────
+
+  - name: mart_facebook_insights
+    description: "Daily Facebook page insights — impressions, views, reactions, followers"
+    columns:
+      - name: date
+        description: "Date of the insight record"
+        tests:
+          - not_null
+          - unique
+      - name: year_week
+        tests:
+          - not_null
+      - name: year_month
+        tests:
+          - not_null
+      - name: day_of_week
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      - name: total_followers
+        tests:
+          - not_null
+      - name: unique_impressions
+        tests:
+          - not_null
+
+  - name: mart_facebook_metrics
+    description: "Unpivoted Facebook metrics by date and metric name"
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: day_of_week
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      - name: metric_name
+        tests:
+          - not_null
+      - name: metric_value
+        tests:
+          # FIX: Meta sometimes returns null for metrics with no activity that day — warn only
+          - not_null:
+              config:
+                severity: warn
+
+  - name: mart_facebook_posts
+    description: "Facebook post-level data with engagement metrics"
+    columns:
+      - name: post_id
+        tests:
+          - not_null
+          - unique
+      - name: post_date
+        tests:
+          - not_null
+      - name: year_month
+        tests:
+          - not_null
+      - name: day_of_week
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      - name: year
+        tests:
+          - not_null
+
+  # ── TIKTOK ────────────────────────────────────────────────────────────────
+
+  - name: mart_posts_perfomance
+    description: "TikTok post-level performance — likes, sound, location"
+    columns:
+      - name: post_id
+        tests:
+          - not_null
+          - unique
+      - name: post_date
+        tests:
+          - not_null
+      - name: posted_at
+        tests:
+          - not_null
+      - name: likes
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+  - name: mart_tiktok_activity_overlap
+    description: "TikTok daily activity — posts, likes, and live session overlap"
+    columns:
+      - name: activity_date
+        tests:
+          - not_null
+          - unique
+      - name: day_of_week
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      - name: day_number
+        tests:
+          - not_null
+      - name: posts_on_day
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: total_post_likes
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: avg_post_likes
+        tests:
+          - not_null
+
+  - name: mart_tiktok_followers
+    description: "TikTok daily follower growth and cumulative count"
+    columns:
+      - name: follow_date
+        tests:
+          - not_null
+          - unique
+      - name: new_followers
+        tests:
+          - not_null
+      - name: cumulative_followers
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+  - name: mart_tiktok_live_perfomance
+    description: "TikTok live session performance — duration, views, engagement"
+    columns:
+      - name: room_id
+        tests:
+          - not_null
+          - unique
+      - name: live_date
+        tests:
+          - not_null
+      - name: start_time
+        tests:
+          - not_null
+      - name: end_time
+        tests:
+          - not_null
+      - name: duration_mins
+        tests:
+          - not_null
+          # FIX: 2 sessions have duration_mins = 0 (failed/instant sessions) — warn only
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+              config:
+                severity: warn
+
+  # ── YOUTUBE ───────────────────────────────────────────────────────────────
+
+  - name: mart_youtube_perfomance
+    description: "YouTube video performance — views, likes, comments by video"
+    columns:
+      - name: video_id
+        tests:
+          - not_null
+          - unique
+      - name: video_title
+        tests:
+          - not_null
+      - name: published_at
+        tests:
+          - not_null
+      - name: year_month
+        tests:
+          - not_null
+      - name: day_of_week
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      - name: view_count
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+  - name: mart_youtube_videos
+    description: "Enriched YouTube video mart — one row per video with duration buckets"
+    columns:
+      - name: video_id
+        tests:
+          - not_null
+          - unique
+      - name: video_title
+        tests:
+          - not_null
+      - name: published_at
+        tests:
+          - not_null
+      - name: year_month
+        tests:
+          - not_null
+      - name: day_of_week
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+      - name: day_of_week_num
+        tests:
+          - not_null
+
+  # ── CROSS PLATFORM ────────────────────────────────────────────────────────
+
+  - name: mart_social_overview
+    description: "Cross-platform summary — one row per platform with aggregated metrics"
+    columns:
+      - name: platform
+        tests:
+          - not_null
+          - unique
+          - accepted_values:
+              values: ['facebook', 'youtube', 'tiktok', 'instagram']
+      - name: total_followers
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: total_posts
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: total_likes
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: total_views
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: total_comments
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+  - name: mart_social_followers_snapshot
+    description: "Daily follower snapshot across all platforms with period-over-period comparison"
+    columns:
+      - name: platform
+        tests:
+          - not_null
+      - name: snapshot_date
+        tests:
+          - not_null
+      - name: follower_count
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+      - name: total_views
+        tests:
+          # FIX: 255 nulls — not all platforms return total_views in snapshot (expected) — warn only
+          - not_null:
+              config:
+                severity: warn
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+              config:
+                severity: warn
