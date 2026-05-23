@@ -637,3 +637,267 @@ There are 3 unused configuration paths:
 19:59:30  
 19:59:30  Done. PASS=82 WARN=2 ERROR=0 SKIP=0 NO-OP=0 TOTAL=84
 Pipeline completed 2026/05/23 21:59:34,31 
+Traceback (most recent call last):
+  File "C:\Users\gadis\goshen\run_ingestion.py", line 12, in <module>
+    print(f"\n\U0001f680 Running {script}...")
+  File "C:\Users\gadis\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 2: character maps to <undefined>
+20:11:29  Running with dbt=1.11.9
+20:11:32  Registered adapter: bigquery=1.11.1
+20:11:33  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 3 unused configuration paths:
+- models.goshen.staging.instagram
+- models.goshen.staging.members
+- models.goshen.staging.attendance
+20:11:34  Found 22 models, 84 data tests, 11 sources, 657 macros
+20:11:34  
+20:11:34  Concurrency: 4 threads (target='dev')
+20:11:34  
+20:11:42  1 of 22 START sql view model analytics_staging.stg_facebook_insights ........... [RUN]
+20:11:42  2 of 22 START sql view model analytics_staging.stg_facebook_posts .............. [RUN]
+20:11:42  3 of 22 START sql view model analytics_staging.stg_tiktok_followers ............ [RUN]
+20:11:42  4 of 22 START sql view model analytics_staging.stg_tiktok_live ................. [RUN]
+20:11:48  1 of 22 OK created sql view model analytics_staging.stg_facebook_insights ...... [CREATE VIEW (0 processed) in 6.02s]
+20:11:48  3 of 22 OK created sql view model analytics_staging.stg_tiktok_followers ....... [CREATE VIEW (0 processed) in 6.02s]
+20:11:48  2 of 22 OK created sql view model analytics_staging.stg_facebook_posts ......... [CREATE VIEW (0 processed) in 6.03s]
+20:11:48  5 of 22 START sql view model analytics_staging.stg_tiktok_live_comments ........ [RUN]
+20:11:48  6 of 22 START sql view model analytics_staging.stg_tiktok_posts ................ [RUN]
+20:11:48  7 of 22 START sql view model analytics_staging.stg_tiktok_watch_live_history ... [RUN]
+20:11:48  4 of 22 OK created sql view model analytics_staging.stg_tiktok_live ............ [CREATE VIEW (0 processed) in 6.26s]
+20:11:48  8 of 22 START sql view model analytics_staging.stg_youtube_channel ............. [RUN]
+20:11:53  7 of 22 OK created sql view model analytics_staging.stg_tiktok_watch_live_history  [CREATE VIEW (0 processed) in 5.14s]
+20:11:53  9 of 22 START sql view model analytics_staging.stg_youtube_comments ............ [RUN]
+20:11:53  8 of 22 OK created sql view model analytics_staging.stg_youtube_channel ........ [CREATE VIEW (0 processed) in 4.98s]
+20:11:53  6 of 22 OK created sql view model analytics_staging.stg_tiktok_posts ........... [CREATE VIEW (0 processed) in 5.21s]
+20:11:53  10 of 22 START sql view model analytics_staging.stg_youtube_videos ............. [RUN]
+20:11:53  11 of 22 START sql table model analytics_marts.mart_facebook_insights .......... [RUN]
+20:11:53  5 of 22 OK created sql view model analytics_staging.stg_tiktok_live_comments ... [CREATE VIEW (0 processed) in 5.34s]
+20:11:53  12 of 22 START sql table model analytics_marts.mart_facebook_metrics ........... [RUN]
+20:11:58  9 of 22 OK created sql view model analytics_staging.stg_youtube_comments ....... [CREATE VIEW (0 processed) in 4.98s]
+20:11:58  13 of 22 START sql table model analytics_marts.mart_tiktok_followers ........... [RUN]
+20:11:58  10 of 22 OK created sql view model analytics_staging.stg_youtube_videos ........ [CREATE VIEW (0 processed) in 5.22s]
+20:11:58  14 of 22 START sql table model analytics_marts.mart_facebook_posts ............. [RUN]
+20:12:01  12 of 22 OK created sql table model analytics_marts.mart_facebook_metrics ...... [CREATE TABLE (112.0 rows, 15.5 KiB processed) in 7.60s]
+20:12:01  15 of 22 START sql table model analytics_marts.mart_tiktok_live_perfomance ..... [RUN]
+20:12:03  11 of 22 OK created sql table model analytics_marts.mart_facebook_insights ..... [CREATE TABLE (16.0 rows, 15.5 KiB processed) in 9.73s]
+20:12:03  16 of 22 START sql table model analytics_marts.mart_posts_perfomance ........... [RUN]
+20:12:05  13 of 22 OK created sql table model analytics_marts.mart_tiktok_followers ...... [CREATE TABLE (255.0 rows, 2.1 MiB processed) in 6.86s]
+20:12:05  17 of 22 START sql table model analytics_marts.mart_youtube_perfomance ......... [RUN]
+20:12:06  14 of 22 OK created sql table model analytics_marts.mart_facebook_posts ........ [CREATE TABLE (702.0 rows, 2.4 MiB processed) in 7.61s]
+20:12:06  18 of 22 START sql table model analytics_marts.mart_youtube_videos ............. [RUN]
+20:12:07  15 of 22 OK created sql table model analytics_marts.mart_tiktok_live_perfomance  [CREATE TABLE (36.0 rows, 75.6 KiB processed) in 6.53s]
+20:12:07  19 of 22 START sql table model analytics_marts.mart_social_followers_snapshot .. [RUN]
+20:12:10  16 of 22 OK created sql table model analytics_marts.mart_posts_perfomance ...... [CREATE TABLE (75.0 rows, 109.7 KiB processed) in 7.06s]
+20:12:10  20 of 22 START sql table model analytics_marts.mart_tiktok_activity_overlap .... [RUN]
+20:12:12  17 of 22 OK created sql table model analytics_marts.mart_youtube_perfomance .... [CREATE TABLE (61.0 rows, 335.8 KiB processed) in 7.06s]
+20:12:12  21 of 22 START sql table model analytics_marts.mart_executive_summary .......... [RUN]
+20:12:13  18 of 22 OK created sql table model analytics_marts.mart_youtube_videos ........ [CREATE TABLE (61.0 rows, 358.3 KiB processed) in 7.45s]
+20:12:13  22 of 22 START sql table model analytics_marts.mart_social_overview ............ [RUN]
+20:12:14  19 of 22 OK created sql table model analytics_marts.mart_social_followers_snapshot  [CREATE TABLE (270.0 rows, 20.5 KiB processed) in 6.82s]
+20:12:17  20 of 22 OK created sql table model analytics_marts.mart_tiktok_activity_overlap  [CREATE TABLE (73.0 rows, 2.0 KiB processed) in 6.61s]
+20:12:18  21 of 22 OK created sql table model analytics_marts.mart_executive_summary ..... [CREATE TABLE (3.0 rows, 5.3 KiB processed) in 6.45s]
+20:12:20  22 of 22 OK created sql table model analytics_marts.mart_social_overview ....... [CREATE TABLE (3.0 rows, 15.9 KiB processed) in 6.59s]
+20:12:20  
+20:12:20  Finished running 12 table models, 10 view models in 0 hours 0 minutes and 46.30 seconds (46.30s).
+20:12:20  
+20:12:20  Completed successfully
+20:12:20  
+20:12:20  Done. PASS=22 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=22
+20:12:28  Running with dbt=1.11.9
+20:12:30  Registered adapter: bigquery=1.11.1
+20:12:32  [WARNING]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 3 unused configuration paths:
+- models.goshen.staging.attendance
+- models.goshen.staging.instagram
+- models.goshen.staging.members
+20:12:32  Found 22 models, 84 data tests, 11 sources, 657 macros
+20:12:32  
+20:12:32  Concurrency: 4 threads (target='dev')
+20:12:32  
+20:12:35  1 of 84 START test accepted_values_mart_facebook_insights_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+20:12:35  2 of 84 START test accepted_values_mart_facebook_metrics_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+20:12:35  3 of 84 START test accepted_values_mart_facebook_posts_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+20:12:35  4 of 84 START test accepted_values_mart_social_overview_platform__facebook__youtube__tiktok__instagram  [RUN]
+20:12:41  3 of 84 PASS accepted_values_mart_facebook_posts_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.40s]
+20:12:41  4 of 84 PASS accepted_values_mart_social_overview_platform__facebook__youtube__tiktok__instagram  [PASS in 5.41s]
+20:12:41  5 of 84 START test accepted_values_mart_tiktok_activity_overlap_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+20:12:41  6 of 84 START test accepted_values_mart_youtube_perfomance_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+20:12:41  2 of 84 PASS accepted_values_mart_facebook_metrics_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.43s]
+20:12:41  1 of 84 PASS accepted_values_mart_facebook_insights_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 5.46s]
+20:12:41  7 of 84 START test accepted_values_mart_youtube_videos_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [RUN]
+20:12:41  8 of 84 START test dbt_utils_expression_is_true_mart_posts_perfomance_likes___0  [RUN]
+20:12:48  7 of 84 PASS accepted_values_mart_youtube_videos_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 7.12s]
+20:12:48  9 of 84 START test dbt_utils_expression_is_true_mart_social_followers_snapshot_follower_count___0  [RUN]
+20:12:48  8 of 84 PASS dbt_utils_expression_is_true_mart_posts_perfomance_likes___0 ...... [PASS in 7.11s]
+20:12:48  5 of 84 PASS accepted_values_mart_tiktok_activity_overlap_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 7.18s]
+20:12:48  10 of 84 START test dbt_utils_expression_is_true_mart_social_followers_snapshot_total_views___0  [RUN]
+20:12:48  6 of 84 PASS accepted_values_mart_youtube_perfomance_day_of_week__Monday__Tuesday__Wednesday__Thursday__Friday__Saturday__Sunday  [PASS in 7.19s]
+20:12:48  11 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_comments___0  [RUN]
+20:12:48  12 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_followers___0  [RUN]
+20:12:53  11 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_comments___0  [PASS in 5.14s]
+20:12:53  13 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_likes___0  [RUN]
+20:12:53  10 of 84 PASS dbt_utils_expression_is_true_mart_social_followers_snapshot_total_views___0  [PASS in 5.24s]
+20:12:53  14 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_posts___0  [RUN]
+20:12:53  9 of 84 PASS dbt_utils_expression_is_true_mart_social_followers_snapshot_follower_count___0  [PASS in 5.36s]
+20:12:53  12 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_followers___0  [PASS in 5.31s]
+20:12:53  15 of 84 START test dbt_utils_expression_is_true_mart_social_overview_total_views___0  [RUN]
+20:12:53  16 of 84 START test dbt_utils_expression_is_true_mart_tiktok_activity_overlap_posts_on_day___0  [RUN]
+20:12:58  13 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_likes___0  [PASS in 5.04s]
+20:12:58  17 of 84 START test dbt_utils_expression_is_true_mart_tiktok_activity_overlap_total_post_likes___0  [RUN]
+20:12:58  15 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_views___0  [PASS in 5.01s]
+20:12:58  18 of 84 START test dbt_utils_expression_is_true_mart_tiktok_followers_cumulative_followers___0  [RUN]
+20:12:58  14 of 84 PASS dbt_utils_expression_is_true_mart_social_overview_total_posts___0  [PASS in 5.23s]
+20:12:58  19 of 84 START test dbt_utils_expression_is_true_mart_tiktok_live_perfomance_duration_mins___0  [RUN]
+20:12:59  16 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_activity_overlap_posts_on_day___0  [PASS in 5.46s]
+20:12:59  20 of 84 START test dbt_utils_expression_is_true_mart_youtube_perfomance_view_count___0  [RUN]
+20:13:03  18 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_followers_cumulative_followers___0  [PASS in 4.71s]
+20:13:03  21 of 84 START test not_null_mart_facebook_insights_date ....................... [RUN]
+20:13:03  17 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_activity_overlap_total_post_likes___0  [PASS in 4.90s]
+20:13:03  22 of 84 START test not_null_mart_facebook_insights_day_of_week ................ [RUN]
+20:13:03  20 of 84 PASS dbt_utils_expression_is_true_mart_youtube_perfomance_view_count___0  [PASS in 4.80s]
+20:13:03  23 of 84 START test not_null_mart_facebook_insights_total_followers ............ [RUN]
+20:13:03  19 of 84 PASS dbt_utils_expression_is_true_mart_tiktok_live_perfomance_duration_mins___0  [PASS in 5.18s]
+20:13:03  24 of 84 START test not_null_mart_facebook_insights_unique_impressions ......... [RUN]
+20:13:08  22 of 84 PASS not_null_mart_facebook_insights_day_of_week ...................... [PASS in 4.74s]
+20:13:08  25 of 84 START test not_null_mart_facebook_insights_year_month ................. [RUN]
+20:13:08  21 of 84 PASS not_null_mart_facebook_insights_date ............................. [PASS in 4.87s]
+20:13:08  26 of 84 START test not_null_mart_facebook_insights_year_week .................. [RUN]
+20:13:09  23 of 84 PASS not_null_mart_facebook_insights_total_followers .................. [PASS in 5.16s]
+20:13:09  27 of 84 START test not_null_mart_facebook_metrics_date ........................ [RUN]
+20:13:09  24 of 84 PASS not_null_mart_facebook_insights_unique_impressions ............... [PASS in 5.41s]
+20:13:09  28 of 84 START test not_null_mart_facebook_metrics_day_of_week ................. [RUN]
+20:13:12  25 of 84 PASS not_null_mart_facebook_insights_year_month ....................... [PASS in 4.83s]
+20:13:13  29 of 84 START test not_null_mart_facebook_metrics_metric_name ................. [RUN]
+20:13:13  26 of 84 PASS not_null_mart_facebook_insights_year_week ........................ [PASS in 4.91s]
+20:13:13  30 of 84 START test not_null_mart_facebook_metrics_metric_value ................ [RUN]
+20:13:13  27 of 84 PASS not_null_mart_facebook_metrics_date .............................. [PASS in 4.39s]
+20:13:13  31 of 84 START test not_null_mart_facebook_posts_day_of_week ................... [RUN]
+20:13:14  28 of 84 PASS not_null_mart_facebook_metrics_day_of_week ....................... [PASS in 4.74s]
+20:13:14  32 of 84 START test not_null_mart_facebook_posts_post_date ..................... [RUN]
+20:13:18  29 of 84 PASS not_null_mart_facebook_metrics_metric_name ....................... [PASS in 5.25s]
+20:13:18  33 of 84 START test not_null_mart_facebook_posts_post_id ....................... [RUN]
+20:13:18  30 of 84 WARN 1 not_null_mart_facebook_metrics_metric_value .................... [WARN 1 in 5.62s]
+20:13:18  34 of 84 START test not_null_mart_facebook_posts_year .......................... [RUN]
+20:13:19  31 of 84 PASS not_null_mart_facebook_posts_day_of_week ......................... [PASS in 5.59s]
+20:13:19  35 of 84 START test not_null_mart_facebook_posts_year_month .................... [RUN]
+20:13:21  32 of 84 PASS not_null_mart_facebook_posts_post_date ........................... [PASS in 7.10s]
+20:13:21  36 of 84 START test not_null_mart_posts_perfomance_likes ....................... [RUN]
+20:13:22  33 of 84 PASS not_null_mart_facebook_posts_post_id ............................. [PASS in 4.39s]
+20:13:22  37 of 84 START test not_null_mart_posts_perfomance_post_date ................... [RUN]
+20:13:23  34 of 84 PASS not_null_mart_facebook_posts_year ................................ [PASS in 4.45s]
+20:13:23  38 of 84 START test not_null_mart_posts_perfomance_post_id ..................... [RUN]
+20:13:23  35 of 84 PASS not_null_mart_facebook_posts_year_month .......................... [PASS in 4.44s]
+20:13:23  39 of 84 START test not_null_mart_posts_perfomance_posted_at ................... [RUN]
+20:13:25  36 of 84 PASS not_null_mart_posts_perfomance_likes ............................. [PASS in 4.21s]
+20:13:25  40 of 84 START test not_null_mart_social_followers_snapshot_follower_count ..... [RUN]
+20:13:27  37 of 84 PASS not_null_mart_posts_perfomance_post_date ......................... [PASS in 4.51s]
+20:13:27  41 of 84 START test not_null_mart_social_followers_snapshot_platform ........... [RUN]
+20:13:27  38 of 84 PASS not_null_mart_posts_perfomance_post_id ........................... [PASS in 4.41s]
+20:13:27  42 of 84 START test not_null_mart_social_followers_snapshot_snapshot_date ...... [RUN]
+20:13:27  39 of 84 PASS not_null_mart_posts_perfomance_posted_at ......................... [PASS in 4.40s]
+20:13:27  43 of 84 START test not_null_mart_social_followers_snapshot_total_views ........ [RUN]
+20:13:30  40 of 84 PASS not_null_mart_social_followers_snapshot_follower_count ........... [PASS in 4.65s]
+20:13:30  44 of 84 START test not_null_mart_social_overview_platform ..................... [RUN]
+20:13:32  41 of 84 PASS not_null_mart_social_followers_snapshot_platform ................. [PASS in 5.07s]
+20:13:32  45 of 84 START test not_null_mart_social_overview_total_comments ............... [RUN]
+20:13:32  42 of 84 PASS not_null_mart_social_followers_snapshot_snapshot_date ............ [PASS in 5.05s]
+20:13:32  46 of 84 START test not_null_mart_social_overview_total_followers .............. [RUN]
+20:13:32  43 of 84 WARN 255 not_null_mart_social_followers_snapshot_total_views .......... [WARN 255 in 4.91s]
+20:13:32  47 of 84 START test not_null_mart_social_overview_total_likes .................. [RUN]
+20:13:34  44 of 84 PASS not_null_mart_social_overview_platform ........................... [PASS in 4.47s]
+20:13:34  48 of 84 START test not_null_mart_social_overview_total_posts .................. [RUN]
+20:13:37  45 of 84 PASS not_null_mart_social_overview_total_comments ..................... [PASS in 5.03s]
+20:13:37  49 of 84 START test not_null_mart_social_overview_total_views .................. [RUN]
+20:13:37  47 of 84 PASS not_null_mart_social_overview_total_likes ........................ [PASS in 4.79s]
+20:13:37  50 of 84 START test not_null_mart_tiktok_activity_overlap_activity_date ........ [RUN]
+20:13:38  46 of 84 PASS not_null_mart_social_overview_total_followers .................... [PASS in 5.50s]
+20:13:38  51 of 84 START test not_null_mart_tiktok_activity_overlap_avg_post_likes ....... [RUN]
+20:13:39  48 of 84 PASS not_null_mart_social_overview_total_posts ........................ [PASS in 4.88s]
+20:13:39  52 of 84 START test not_null_mart_tiktok_activity_overlap_day_number ........... [RUN]
+20:13:42  49 of 84 PASS not_null_mart_social_overview_total_views ........................ [PASS in 4.86s]
+20:13:42  53 of 84 START test not_null_mart_tiktok_activity_overlap_day_of_week .......... [RUN]
+20:13:42  50 of 84 PASS not_null_mart_tiktok_activity_overlap_activity_date .............. [PASS in 4.94s]
+20:13:42  54 of 84 START test not_null_mart_tiktok_activity_overlap_posts_on_day ......... [RUN]
+20:13:43  51 of 84 PASS not_null_mart_tiktok_activity_overlap_avg_post_likes ............. [PASS in 4.90s]
+20:13:43  55 of 84 START test not_null_mart_tiktok_activity_overlap_total_post_likes ..... [RUN]
+20:13:44  52 of 84 PASS not_null_mart_tiktok_activity_overlap_day_number ................. [PASS in 5.40s]
+20:13:44  56 of 84 START test not_null_mart_tiktok_followers_cumulative_followers ........ [RUN]
+20:13:47  53 of 84 PASS not_null_mart_tiktok_activity_overlap_day_of_week ................ [PASS in 4.97s]
+20:13:47  57 of 84 START test not_null_mart_tiktok_followers_follow_date ................. [RUN]
+20:13:47  54 of 84 PASS not_null_mart_tiktok_activity_overlap_posts_on_day ............... [PASS in 5.00s]
+20:13:47  58 of 84 START test not_null_mart_tiktok_followers_new_followers ............... [RUN]
+20:13:48  55 of 84 PASS not_null_mart_tiktok_activity_overlap_total_post_likes ........... [PASS in 5.15s]
+20:13:48  59 of 84 START test not_null_mart_tiktok_live_perfomance_duration_mins ......... [RUN]
+20:13:49  56 of 84 PASS not_null_mart_tiktok_followers_cumulative_followers .............. [PASS in 4.66s]
+20:13:49  60 of 84 START test not_null_mart_tiktok_live_perfomance_end_time .............. [RUN]
+20:13:52  57 of 84 PASS not_null_mart_tiktok_followers_follow_date ....................... [PASS in 5.40s]
+20:13:52  61 of 84 START test not_null_mart_tiktok_live_perfomance_live_date ............. [RUN]
+20:13:52  58 of 84 PASS not_null_mart_tiktok_followers_new_followers ..................... [PASS in 5.30s]
+20:13:52  62 of 84 START test not_null_mart_tiktok_live_perfomance_room_id ............... [RUN]
+20:13:54  59 of 84 PASS not_null_mart_tiktok_live_perfomance_duration_mins ............... [PASS in 6.17s]
+20:13:54  63 of 84 START test not_null_mart_tiktok_live_perfomance_start_time ............ [RUN]
+20:13:55  60 of 84 PASS not_null_mart_tiktok_live_perfomance_end_time .................... [PASS in 5.72s]
+20:13:55  64 of 84 START test not_null_mart_youtube_perfomance_day_of_week ............... [RUN]
+20:13:57  61 of 84 PASS not_null_mart_tiktok_live_perfomance_live_date ................... [PASS in 5.35s]
+20:13:57  65 of 84 START test not_null_mart_youtube_perfomance_published_at .............. [RUN]
+20:13:58  62 of 84 PASS not_null_mart_tiktok_live_perfomance_room_id ..................... [PASS in 5.69s]
+20:13:58  66 of 84 START test not_null_mart_youtube_perfomance_video_id .................. [RUN]
+20:13:59  63 of 84 PASS not_null_mart_tiktok_live_perfomance_start_time .................. [PASS in 5.05s]
+20:13:59  67 of 84 START test not_null_mart_youtube_perfomance_video_title ............... [RUN]
+20:13:59  64 of 84 PASS not_null_mart_youtube_perfomance_day_of_week ..................... [PASS in 4.66s]
+20:13:59  68 of 84 START test not_null_mart_youtube_perfomance_view_count ................ [RUN]
+20:14:02  65 of 84 PASS not_null_mart_youtube_perfomance_published_at .................... [PASS in 5.07s]
+20:14:02  69 of 84 START test not_null_mart_youtube_perfomance_year_month ................ [RUN]
+20:14:03  66 of 84 PASS not_null_mart_youtube_perfomance_video_id ........................ [PASS in 5.13s]
+20:14:03  70 of 84 START test not_null_mart_youtube_videos_day_of_week ................... [RUN]
+20:14:04  67 of 84 PASS not_null_mart_youtube_perfomance_video_title ..................... [PASS in 4.68s]
+20:14:04  71 of 84 START test not_null_mart_youtube_videos_day_of_week_num ............... [RUN]
+20:14:04  68 of 84 PASS not_null_mart_youtube_perfomance_view_count ...................... [PASS in 4.44s]
+20:14:04  72 of 84 START test not_null_mart_youtube_videos_published_at .................. [RUN]
+20:14:07  69 of 84 PASS not_null_mart_youtube_perfomance_year_month ...................... [PASS in 4.70s]
+20:14:07  73 of 84 START test not_null_mart_youtube_videos_video_id ...................... [RUN]
+20:14:08  70 of 84 PASS not_null_mart_youtube_videos_day_of_week ......................... [PASS in 4.68s]
+20:14:08  74 of 84 START test not_null_mart_youtube_videos_video_title ................... [RUN]
+20:14:08  71 of 84 PASS not_null_mart_youtube_videos_day_of_week_num ..................... [PASS in 4.72s]
+20:14:08  75 of 84 START test not_null_mart_youtube_videos_year_month .................... [RUN]
+20:14:09  72 of 84 PASS not_null_mart_youtube_videos_published_at ........................ [PASS in 4.66s]
+20:14:09  76 of 84 START test unique_mart_facebook_insights_date ......................... [RUN]
+20:14:12  73 of 84 PASS not_null_mart_youtube_videos_video_id ............................ [PASS in 4.80s]
+20:14:12  77 of 84 START test unique_mart_facebook_posts_post_id ......................... [RUN]
+20:14:13  74 of 84 PASS not_null_mart_youtube_videos_video_title ......................... [PASS in 4.77s]
+20:14:13  78 of 84 START test unique_mart_posts_perfomance_post_id ....................... [RUN]
+20:14:14  75 of 84 PASS not_null_mart_youtube_videos_year_month .......................... [PASS in 5.25s]
+20:14:14  79 of 84 START test unique_mart_social_overview_platform ....................... [RUN]
+20:14:14  76 of 84 PASS unique_mart_facebook_insights_date ............................... [PASS in 5.37s]
+20:14:14  80 of 84 START test unique_mart_tiktok_activity_overlap_activity_date .......... [RUN]
+20:14:16  77 of 84 PASS unique_mart_facebook_posts_post_id ............................... [PASS in 4.51s]
+20:14:16  81 of 84 START test unique_mart_tiktok_followers_follow_date ................... [RUN]
+20:14:17  78 of 84 PASS unique_mart_posts_perfomance_post_id ............................. [PASS in 4.55s]
+20:14:17  82 of 84 START test unique_mart_tiktok_live_perfomance_room_id ................. [RUN]
+20:14:18  79 of 84 PASS unique_mart_social_overview_platform ............................. [PASS in 4.80s]
+20:14:18  83 of 84 START test unique_mart_youtube_perfomance_video_id .................... [RUN]
+20:14:19  80 of 84 PASS unique_mart_tiktok_activity_overlap_activity_date ................ [PASS in 4.66s]
+20:14:19  84 of 84 START test unique_mart_youtube_videos_video_id ........................ [RUN]
+20:14:21  81 of 84 PASS unique_mart_tiktok_followers_follow_date ......................... [PASS in 4.32s]
+20:14:22  82 of 84 PASS unique_mart_tiktok_live_perfomance_room_id ....................... [PASS in 5.00s]
+20:14:24  83 of 84 PASS unique_mart_youtube_perfomance_video_id .......................... [PASS in 5.33s]
+20:14:24  84 of 84 PASS unique_mart_youtube_videos_video_id .............................. [PASS in 5.36s]
+20:14:24  
+20:14:24  Finished running 84 data tests in 0 hours 1 minutes and 52.04 seconds (112.04s).
+20:14:24  
+20:14:24  Completed with 2 warnings:
+20:14:24  
+20:14:24  Warning in test not_null_mart_facebook_metrics_metric_value (models\staging\schema.yml)
+20:14:24  Got 1 result, configured to warn if != 0
+20:14:24  
+20:14:24    compiled code at target\compiled\goshen\models\staging\schema.yml\not_null_mart_facebook_metrics_metric_value.sql
+20:14:24  
+20:14:24  Warning in test not_null_mart_social_followers_snapshot_total_views (models\staging\schema.yml)
+20:14:24  Got 255 results, configured to warn if != 0
+20:14:24  
+20:14:24    compiled code at target\compiled\goshen\models\staging\schema.yml\not_null_mart_social_followers_snapshot_total_views.sql
+20:14:24  
+20:14:24  Done. PASS=82 WARN=2 ERROR=0 SKIP=0 NO-OP=0 TOTAL=84
+Pipeline completed 2026/05/23 22:14:28,59 
