@@ -345,7 +345,7 @@ pip install dbt-bigquery dbt-utils google-cloud-bigquery python-dotenv
 
 # Configure environment variables
 cp .env.example .env
-# Fill in your API keys and Snowflake credentials
+# Fill in your API keys and BigQuery credentials
 
 # Run the pipeline
 python run_ingestion.py
@@ -365,7 +365,7 @@ Remote contracts │ UTC+2
 - 💼 [LinkedIn](https://www.linkedin.com/in/proud-ndlovu-89070854/)
 - 🐙 [GitHub](https://github.com/ApostolicDA)
 
-*Stack: dbt · Snowflake · BigQuery · Airflow · Python · SQL · Power BI · Looker Studio*
+*Stack: dbt  · BigQuery · Airflow · Python · SQL · Power BI · Looker Studio*
 
 ---
 
