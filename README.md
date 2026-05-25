@@ -146,13 +146,13 @@ goshen/
 │       ├── mart_facebook_insights.sql
 │       ├── mart_facebook_metrics.sql
 │       ├── mart_facebook_posts.sql
-│       ├── mart_posts_perfomance.sql
+│       ├── mart_posts_performance.sql
 │       ├── mart_social_followers_snapshot.sql
 │       ├── mart_social_overview.sql
 │       ├── mart_tiktok_activity_overlap.sql
 │       ├── mart_tiktok_followers.sql
-│       ├── mart_tiktok_live_perfomance.sql
-│       ├── mart_youtube_perfomance.sql
+│       ├── mart_tiktok_live_performance.sql
+│       ├── mart_youtube_performance.sql
 │       ├── mart_youtube_videos.sql
 │       └── schema.yml    # 84 data tests
 ├── Dags/                 # Airflow DAGs (cloud deployment ready)
