@@ -69,25 +69,37 @@ Leadership was making content decisions based on gut feeling.
 
 ## 📊 Dashboard Pages
 
+🔗 [View Live Dashboard](https://datastudio.google.com/reporting/9c9bc03d-2132-49fb-adf9-55c818d2b9ab)
+
 ### 1. Goshen Social Overview
+![Social Overview](screenshots/overview.png)
+
 Cross-platform command centre. 3.8K total community. 27.3K total views. One glance tells the full story.
 
 ### 2. Facebook Analytics
+![Facebook Analytics](screenshots/facebook.png)
+
 - 1.1K followers │ 4.6K impressions │ 565 page views
 - Thursday & Saturday: peak organic reach (1.3K impressions each)
 - Wednesday: high page visits, zero content — **the biggest missed opportunity in the data**
 
 ### 3. YouTube Analysis
+![YouTube Analysis](screenshots/youtube.png)
+
 - 61 videos │ 6K views │ **23% engagement rate** — highest across all platforms
 - Short content under 20 min drives 70% of all views
 - Tuesday is peak viewing day — post-Sunday intentional traffic
 
 ### 4. TikTok Live Analytics
+![TikTok Live](screenshots/tiktoklive.png)
+
 - 2.6K followers │ 20.2K views │ **300.2K likes**
 - Long live streams dominate — Sunday services are the #1 content
 - November 2025: viral moment — 100K+ views, 5x follower growth in 4 months
 
 ### 5. TikTok Posts Analytics
+![TikTok Posts](screenshots/tiktokposts.png)
+
 - 75 posts │ 13.2K likes │ 8.6K highest post
 - Only 9 posts exceed 100 likes — channel is carried by live streams and one viral moment
 - Orlando YMCA location tag → highest performing content location
