@@ -211,6 +211,9 @@ Deployment target: GCP Compute Engine (pending cloud budget).
 
 ## 📸 Pipeline in Action
 
+### BigQuery — 11 raw tables in production
+![BigQuery Tables](screenshots/bigquery_tables.png)
+
 ### Ingestion — live data loading to BigQuery
 ![Pipeline Ingestion](screenshots/pipeline_ingestion.png)
 
