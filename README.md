@@ -364,7 +364,7 @@ This platform gave Goshen Global Church:
 - **The viral content blueprint** — Orlando YMCA + original sound = reach
 - **Proof that TikTok live streaming is the primary growth engine**
 
-> *"Goshen Global Church provided a formal recommendation letter upon project completion."*
+> *Live in production. Driving real content decisions at Goshen Global Church*
 
 ---
 
