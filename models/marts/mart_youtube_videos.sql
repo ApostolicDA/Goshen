@@ -48,12 +48,12 @@ final as (
         -- duration
         round(v.duration_seconds / 60, 1)                 as duration_minutes,
         case
-            when v.duration_seconds is null               then 'Unknown'
-            when v.duration_seconds < 60                  then 'Shorts (< 1 min)'
-            when v.duration_seconds < 1800                then 'Short (< 30 min)'
-            when v.duration_seconds < 3600                then 'Medium (< 60 min)'
-            else                                               'Long (60+ min)'
-        end                                               as duration_bucket,
+    when v.duration_seconds is null     then 'Unknown'
+    when v.duration_seconds < 180       then 'YouTube Shorts (< 3 min)'
+    when v.duration_seconds < 1800      then 'Short clips (< 30 min)'
+    when v.duration_seconds < 3600      then 'Medium (30–60 min)'
+    else                                     'Long form (60+ min)'
+      end as              duration_bucket,
 
         -- comment aggregates (no row multiplication)
         coalesce(c.total_comments_ingested, 0)            as total_comments_ingested,
