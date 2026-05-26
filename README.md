@@ -209,6 +209,13 @@ Full Airflow orchestration designed and documented in `/Dags`:
 
 Deployment target: GCP Compute Engine (pending cloud budget).
 
+## 📸 Pipeline in Action
+
+### Ingestion — live data loading to BigQuery
+![Pipeline Ingestion](screenshots/pipeline_ingestion.png)
+
+### dbt tests — 84 tests, PASS=82 WARN=2 ERROR=0
+![Pipeline Tests](screenshots/pipeline_tests.png)
 ---
 
 ## 🚀 Running Locally (Docker)
