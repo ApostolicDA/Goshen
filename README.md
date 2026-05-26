@@ -1,6 +1,6 @@
 # Goshen Global Church — Analytics Platform
 
-> *"What gets measured gets managed. What gets understood gets transformed."*
+> *"One TikTok post. Orlando YMCA. Original sound. 100K views. We found the blueprint in the data."*
 
 A full-stack analytics platform built for a real client — ingesting social media data from 4 sources, modelling it through a production-grade dbt pipeline, and surfacing actionable insights in a multi-page Looker Studio dashboard that drives real content decisions.
 
@@ -20,6 +20,10 @@ Leadership was making content decisions based on gut feeling.
 
 ## 🏗️ Architecture
 
+### dbt Lineage Graph
+![dbt Lineage](screenshots/lineage.png.png)
+
+Raw sources → Staging models → Mart models → Executive summary. Every dependency tracked, every transformation documented.
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        DATA SOURCES                             │
@@ -205,6 +209,16 @@ Full Airflow orchestration designed and documented in `/Dags`:
 
 Deployment target: GCP Compute Engine (pending cloud budget).
 
+## 📸 Pipeline in Action
+
+### BigQuery — 11 raw tables in production
+![BigQuery Tables](screenshots/bigquery_tables.png)
+
+### Ingestion — live data loading to BigQuery
+![Pipeline Ingestion](screenshots/pipeline_ingestion.png)
+
+### dbt tests — 84 tests, PASS=82 WARN=2 ERROR=0
+![Pipeline Tests](screenshots/pipeline_tests.png)
 ---
 
 ## 🚀 Running Locally (Docker)
