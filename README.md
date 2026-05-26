@@ -20,6 +20,10 @@ Leadership was making content decisions based on gut feeling.
 
 ## 🏗️ Architecture
 
+### dbt Lineage Graph
+![dbt Lineage](screenshots/lineage.png.png)
+
+Raw sources → Staging models → Mart models → Executive summary. Every dependency tracked, every transformation documented.
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        DATA SOURCES                             │
