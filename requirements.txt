@@ -1,0 +1,24 @@
+# ─────────────────────────────────────────────
+#  Goshen Analytics Pipeline — Python Dependencies
+# ─────────────────────────────────────────────
+
+# dbt + BigQuery adapter
+dbt-bigquery==1.11.0
+dbt-core==1.11.0
+
+# Google Cloud
+google-cloud-bigquery==3.25.0
+google-auth==2.29.0
+
+# API clients
+google-api-python-client==2.126.0      # YouTube Data API v3
+facebook-sdk==3.1.0                    # Facebook Graph API (fallback)
+requests==2.31.0                       # Raw HTTP for Facebook Graph API
+
+# Data handling
+pandas==2.2.2
+python-dotenv==1.0.1
+
+# Utilities
+pyarrow==16.0.0                        # BigQuery <-> pandas bridge
+db-dtypes==1.2.0                       # BigQuery type support

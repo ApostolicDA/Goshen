@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+# Credentials handled by Docker environment — no action needed
 client = bigquery.Client()
 
 access_token = os.getenv("FACEBOOK_ACCESS_TOKEN")

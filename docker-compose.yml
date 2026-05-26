@@ -1,0 +1,53 @@
+version: "3.9"
+
+x-common: &common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  env_file:
+    - .env
+  volumes:
+    # GCP service account key (read-only)
+    - ${GOOGLE_APPLICATION_CREDENTIALS_HOST}:/app/credentials/sa_key.json:ro
+    # dbt profiles.yml (read-only)
+    - ${DBT_PROFILES_DIR_HOST}:/root/.dbt:ro
+    # TikTok export .txt files (read-only)
+    - ${TIKTOK_FOLDER_HOST}:/app/data/tiktok:ro
+    # Facebook CSV exports (read-only)
+    - ${FACEBOOK_CSV_FOLDER_HOST}:/app/data/facebook:ro
+    # Persist logs across runs
+    - ./logs:/app/logs
+  environment:
+    GOOGLE_APPLICATION_CREDENTIALS: /app/credentials/sa_key.json
+    DBT_PROFILES_DIR: /root/.dbt
+    TIKTOK_FOLDER: /app/data/tiktok
+    FACEBOOK_CSV_FOLDER: /app/data/facebook
+
+services:
+
+  # ── Step 1: Python Ingestion ──────────────────────────────────
+  ingestion:
+    <<: *common
+    container_name: goshen_ingestion
+    command: python run_ingestion.py
+    restart: "no"
+
+  # ── Step 2: dbt run ───────────────────────────────────────────
+  dbt_run:
+    <<: *common
+    container_name: goshen_dbt_run
+    command: dbt run --profiles-dir /root/.dbt --project-dir /app
+    depends_on:
+      ingestion:
+        condition: service_completed_successfully
+    restart: "no"
+
+  # ── Step 3: dbt test ──────────────────────────────────────────
+  dbt_test:
+    <<: *common
+    container_name: goshen_dbt_test
+    command: dbt test --profiles-dir /root/.dbt --project-dir /app
+    depends_on:
+      dbt_run:
+        condition: service_completed_successfully
+    restart: "no"

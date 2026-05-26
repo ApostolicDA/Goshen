@@ -3,19 +3,27 @@ import os
 from datetime import datetime, timezone
 import pandas as pd
 from google.cloud import bigquery
+from dotenv import load_dotenv
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\gadis\Downloads\goshen-analytics-1a4583133e1e.json"
+load_dotenv()
 
+# ── CREDENTIALS ───────────────────────────────────────────────
+# GOOGLE_APPLICATION_CREDENTIALS is set by Docker via environment variable
+# No hardcoded path — works both locally and in container
 client = bigquery.Client()
 
 # ── CONFIG ────────────────────────────────────────────────────
-TIKTOK_FOLDER = r"C:\Users\gadis\Downloads\goshen\tiktok"
+# Reads from env var — set in .env for local, mounted volume in Docker
+TIKTOK_FOLDER = os.getenv("TIKTOK_FOLDER", "./data/tiktok")
 
 LIVE_HISTORY_FILE  = os.path.join(TIKTOK_FOLDER, "Go_LIVE_History.txt")
 LIVE_COMMENTS_FILE = os.path.join(TIKTOK_FOLDER, "LiveStream_Comment.txt")
 POSTS_FILE         = os.path.join(TIKTOK_FOLDER, "Posts.txt")
 WATCH_LIVE_FILE    = os.path.join(TIKTOK_FOLDER, "Watch_LIVE_History.txt")
 FOLLOWER_FILE      = os.path.join(TIKTOK_FOLDER, "Follower.txt")
+
+BQ_PROJECT = os.getenv("GCP_PROJECT_ID", "goshen-analytics")
+BQ_DATASET = os.getenv("BQ_DATASET", "analytics")
 
 # ── HELPER ────────────────────────────────────────────────────
 def now_utc():
@@ -27,8 +35,6 @@ def extract(pattern, text, default=None):
 
 
 # ── 1. LIVE HISTORY ───────────────────────────────────────────
-# Raw dump: every field is a raw string exactly as it appears in the file.
-# No int casting, no None coercion, no duration math — that's dbt's job.
 def parse_live_history(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
@@ -42,13 +48,13 @@ def parse_live_history(filepath):
             continue
 
         rows.append({
-            "room_id"             : extract(r"Room Id: (.+)", session),
-            "live_title_raw"      : extract(r"LIVE title: (.+)", session),
-            "duration_raw"        : duration_raw,          # e.g. "2025-01-01 10:00:00 - 2025-01-01 11:30:00 (90 minutes)"
-            "total_view_raw"      : extract(r"Total view: (.+)", session),
-            "total_gifter_raw"    : extract(r"Total gifter: (.+)", session),
-            "total_likes_raw"     : extract(r"Total likes received: (.+)", session),
-            "ingested_at"         : now_utc(),
+            "room_id"          : extract(r"Room Id: (.+)", session),
+            "live_title_raw"   : extract(r"LIVE title: (.+)", session),
+            "duration_raw"     : duration_raw,
+            "total_view_raw"   : extract(r"Total view: (.+)", session),
+            "total_gifter_raw" : extract(r"Total gifter: (.+)", session),
+            "total_likes_raw"  : extract(r"Total likes received: (.+)", session),
+            "ingested_at"      : now_utc(),
         })
 
     df = pd.DataFrame(rows)
@@ -57,7 +63,6 @@ def parse_live_history(filepath):
 
 
 # ── 2. LIVE COMMENTS ──────────────────────────────────────────
-# One row per comment. room_id and comment_time are raw strings.
 def parse_live_comments(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
@@ -72,7 +77,7 @@ def parse_live_comments(filepath):
 
         rows.append({
             "room_id"          : extract(r"Room ID: (.+)", session),
-            "comment_time_raw" : extract(r"Comment Time: (.+)", session),   # includes " UTC" suffix — cleaned in dbt
+            "comment_time_raw" : extract(r"Comment Time: (.+)", session),
             "comment_text"     : comment,
             "ingested_at"      : now_utc(),
         })
@@ -83,7 +88,6 @@ def parse_live_comments(filepath):
 
 
 # ── 3. POSTS ──────────────────────────────────────────────────
-# Every field raw. No int(), no None for "N/A" — dbt handles that.
 def parse_posts(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
@@ -97,7 +101,7 @@ def parse_posts(filepath):
             continue
 
         rows.append({
-            "date_raw"       : date_raw,           # e.g. "2025-03-01 12:00:00 UTC"
+            "date_raw"       : date_raw,
             "likes_raw"      : extract(r"Like\(s\): (.+)", session),
             "visibility_raw" : extract(r"Who can view: (.+)", session),
             "sound_raw"      : extract(r"Sound: (.+)", session),
@@ -112,8 +116,6 @@ def parse_posts(filepath):
 
 
 # ── 4. WATCH LIVE HISTORY ─────────────────────────────────────
-# Each session = one row. Comments are concatenated as-is into a raw text field.
-# dbt will split/count them if needed.
 def parse_watch_live_history(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
@@ -126,14 +128,13 @@ def parse_watch_live_history(filepath):
         if not date_raw:
             continue
 
-        # Grab every bracketed comment line exactly as it appears
         raw_comment_lines = re.findall(r"(\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] .+)", session)
 
         rows.append({
-            "watched_at_raw"         : date_raw,
-            "link_raw"               : extract(r"Link: (.+)", session),
-            "raw_comments_blob"      : "\n".join(raw_comment_lines) if raw_comment_lines else None,
-            "ingested_at"            : now_utc(),
+            "watched_at_raw"    : date_raw,
+            "link_raw"          : extract(r"Link: (.+)", session),
+            "raw_comments_blob" : "\n".join(raw_comment_lines) if raw_comment_lines else None,
+            "ingested_at"       : now_utc(),
         })
 
     df = pd.DataFrame(rows)
@@ -142,7 +143,6 @@ def parse_watch_live_history(filepath):
 
 
 # ── 5. FOLLOWERS ──────────────────────────────────────────────
-# One row per follower event. Raw date string, no parsing.
 def parse_followers(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
@@ -157,7 +157,7 @@ def parse_followers(filepath):
             continue
 
         rows.append({
-            "followed_at_raw" : date_raw,     # e.g. "2025-06-01 09:00:00 UTC"
+            "followed_at_raw" : date_raw,
             "username"        : username,
             "ingested_at"     : now_utc(),
         })
@@ -175,21 +175,20 @@ df_watch_live = parse_watch_live_history(WATCH_LIVE_FILE)
 df_followers  = parse_followers(FOLLOWER_FILE)
 
 
-# ── LOAD TO BIGQUERY (raw schema, WRITE_APPEND) ───────────────
-# WRITE_APPEND means every weekly drop stacks on top.
-# Deduplication happens in dbt staging using ingested_at + unique keys.
+# ── LOAD TO BIGQUERY ──────────────────────────────────────────
 job_config = bigquery.LoadJobConfig(write_disposition="WRITE_APPEND")
 
-for df, table in [
-    (df_live,       "goshen-analytics.analytics.tiktok_live_history"),
-    (df_comments,   "goshen-analytics.analytics.tiktok_live_comments"),
-    (df_posts,      "goshen-analytics.analytics.tiktok_posts"),
-    (df_watch_live, "goshen-analytics.analytics.tiktok_watch_live_history"),
-    (df_followers,  "goshen-analytics.analytics.tiktok_followers"),
+for df, table_name in [
+    (df_live,       "tiktok_live_history"),
+    (df_comments,   "tiktok_live_comments"),
+    (df_posts,      "tiktok_posts"),
+    (df_watch_live, "tiktok_watch_live_history"),
+    (df_followers,  "tiktok_followers"),
 ]:
+    full_table = f"{BQ_PROJECT}.{BQ_DATASET}.{table_name}"
     if df.empty:
-        print(f"⚠️  Skipping {table} — no data")
+        print(f"⚠️  Skipping {full_table} — no data")
         continue
-    job = client.load_table_from_dataframe(df, table, job_config=job_config)
+    job = client.load_table_from_dataframe(df, full_table, job_config=job_config)
     job.result()
-    print(f"✅ Loaded {len(df)} rows → {table}")
+    print(f"✅ Loaded {len(df)} rows → {full_table}")
