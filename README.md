@@ -1,6 +1,6 @@
 # Goshen Global Church — Analytics Platform
 
-> *"What gets measured gets managed. What gets understood gets transformed."*
+> *"One TikTok post. Orlando YMCA. Original sound. 100K views. We found the blueprint in the data."*
 
 A full-stack analytics platform built for a real client — ingesting social media data from 4 sources, modelling it through a production-grade dbt pipeline, and surfacing actionable insights in a multi-page Looker Studio dashboard that drives real content decisions.
 
