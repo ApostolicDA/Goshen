@@ -24,6 +24,7 @@ Leadership was making content decisions based on gut feeling.
 ![dbt Lineage](screenshots/lineage.png.png)
 
 Raw sources → Staging models → Mart models → Executive summary. Every dependency tracked, every transformation documented.
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        DATA SOURCES                             │
@@ -34,9 +35,10 @@ Raw sources → Staging models → Mart models → Executive summary. Every depe
 ┌─────────────────────────────────────────────────────────────────┐
 │                     INGESTION LAYER                             │
 │              Python scripts → BigQuery raw tables               │
-│         Containerised via Docker (WSL2 + Docker Desktop)        │
-│         Orchestrated via Airflow DAGs (cloud-ready)             │
-│         Scheduled locally via Windows Task Scheduler            │
+│         Containerised via Docker + Google Artifact Registry     │
+│         Orchestrated via GCP Cloud Run Jobs                     │
+│         Scheduled daily via GCP Cloud Scheduler (00:00 SAST)    │
+│         Streaming layer: TikTok Live → Pub/Sub → BigQuery       │
 └─────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
@@ -64,8 +66,9 @@ Raw sources → Staging models → Mart models → Executive summary. Every depe
 | Data Warehouse | BigQuery (Google Cloud) |
 | Transformation | dbt Core 1.11 |
 | Ingestion | Python 3.11 |
-| Containerisation | Docker + Docker Compose (WSL2) |
-| Orchestration | Apache Airflow (DAGs) + Windows Task Scheduler |
+| Containerisation | Docker + Google Artifact Registry |
+| Orchestration | GCP Cloud Run Jobs + Cloud Scheduler |
+| Streaming | GCP Pub/Sub (TikTok Live real-time ingestion) |
 | Visualization | Looker Studio |
 | Version Control | Git + GitHub |
 | APIs | Facebook Graph API, YouTube Data API v3, TikTok data export |
@@ -178,6 +181,9 @@ goshen/
 │   ├── facebook_csv_ingestion.py
 │   ├── youtube_ingestion.py
 │   └── tiktok_ingestion.py
+├── streaming/                # TikTok Live real-time ingestion
+│   └── tiktok_live/
+│       └── listener.py       # Pub/Sub event publisher + session report
 ├── run_ingestion.py          # Ingestion entry point
 ├── packages.yml              # dbt packages (dbt_utils)
 └── dbt_project.yml
@@ -187,27 +193,37 @@ goshen/
 
 ## ⚙️ Pipeline Automation
 
-### Local (Active — Docker + WSL2)
-Pipeline runs daily via Windows Task Scheduler:
+### Cloud (Active — GCP Cloud Run)
+
+Pipeline runs daily via GCP Cloud Scheduler:
+
 ```
-00:00 SAST → wsl.exe triggers run_pipeline.sh
-           → Docker: Python ingestion pulls from APIs + TikTok exports
-           → Docker: dbt run rebuilds 22 models in BigQuery
-           → Docker: dbt test validates 84 tests
+00:00 SAST → Cloud Scheduler triggers Cloud Run Job
+           → Docker container (Artifact Registry) pulls from APIs + TikTok exports
+           → dbt run rebuilds 22 models in BigQuery
+           → dbt test validates 84 tests
            → Looker Studio reflects fresh data
 ```
 
-Each step runs in sequence — if ingestion fails, dbt never runs. Timestamped logs saved automatically to `./logs/`.
+Containerised image stored in Google Artifact Registry (`us-central1`). Each step runs in sequence — if ingestion fails, dbt never runs.
 
-### Cloud (Airflow DAGs — Ready for Deployment)
-Full Airflow orchestration designed and documented in `/Dags`:
-- **dag_master_pipeline.py** — parallel ingestion trigger + dbt orchestration
-- **dag_facebook_pipeline.py** — Facebook Graph API ingestion + validation
-- **dag_youtube_pipeline.py** — YouTube Data API v3 ingestion
-- **dag_tiktok_pipeline.py** — TikTok export processing + BigQuery load
-- **dag_dbt_run.py** — Staged dbt execution (staging → marts → docs)
+### Streaming Layer (Active — GCP Pub/Sub)
 
-Deployment target: GCP Compute Engine (pending cloud budget).
+TikTok Live sessions captured in real-time:
+
+```
+TikTok Live event → Python listener → Pub/Sub topic
+                 → BigQuery raw_tiktok_live_events
+                 → Auto-generated HTML session report → Email delivery
+```
+
+Captures per session: viewer counts, likes, comments, follows, shares, gifts, reconnections. Session report generated and emailed to church leadership automatically on stream end.
+
+### Local (Legacy)
+
+Original automation via Windows Task Scheduler + WSL2 + Docker Desktop. Replaced by cloud deployment. Local scripts retained for development use.
+
+---
 
 ## 📸 Pipeline in Action
 
@@ -219,55 +235,60 @@ Deployment target: GCP Compute Engine (pending cloud budget).
 
 ### dbt tests — 84 tests, PASS=82 WARN=2 ERROR=0
 ![Pipeline Tests](screenshots/pipeline_tests.png)
+
+### Cloud Run — pipeline executing in GCP
+![Cloud Run Job](screenshots/cloud_run_job.png)
+
 ---
 
-## 🚀 Running Locally (Docker)
+## 🚀 Running in the Cloud (GCP Cloud Run)
 
 ### Prerequisites
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) with WSL2 backend enabled
-- GCP service account JSON key with BigQuery access
+- GCP project with BigQuery, Cloud Run, Cloud Scheduler, Artifact Registry, Pub/Sub, and Secret Manager APIs enabled
+- GCP service account with BigQuery, Cloud Run, and Pub/Sub permissions
 - Facebook Graph API long-lived page token
 - YouTube Data API v3 key
 
-### Setup
+### Deploy
 
 ```bash
 # Clone the repo
 git clone https://github.com/ApostolicDA/Goshen.git
 cd Goshen
 
-# Create your environment file
-cp .env.example .env
-# Fill in: GCP credentials path, API keys, TikTok folder path, Facebook CSV folder path
+# Build and push image to Artifact Registry
+docker build -t us-central1-docker.pkg.dev/YOUR_PROJECT/goshen-pipeline/pipeline:latest .
+docker push us-central1-docker.pkg.dev/YOUR_PROJECT/goshen-pipeline/pipeline:latest
 
-# Build the Docker image (first time only)
-docker-compose build
+# Create Cloud Run Job
+gcloud run jobs create goshen-pipeline-job \
+  --image=us-central1-docker.pkg.dev/YOUR_PROJECT/goshen-pipeline/pipeline:latest \
+  --region=us-central1 \
+  --task-timeout=3600 \
+  --memory=1Gi \
+  --cpu=1
 
-# Run the full pipeline
-chmod +x run_pipeline.sh   # first time only
-./run_pipeline.sh
-```
+# Schedule daily at midnight SAST (22:00 UTC)
+gcloud scheduler jobs create http goshen-daily-pipeline \
+  --location=us-central1 \
+  --schedule="0 22 * * *" \
+  --uri="https://us-central1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/YOUR_PROJECT/jobs/goshen-pipeline-job:run" \
+  --oauth-service-account-email=YOUR_SERVICE_ACCOUNT@YOUR_PROJECT.iam.gserviceaccount.com
 
-### Running Individual Steps
-
-```bash
-docker-compose run --rm ingestion   # ingestion only
-docker-compose run --rm dbt_run     # dbt run only
-docker-compose run --rm dbt_test    # dbt test only
+# Trigger manually
+gcloud run jobs execute goshen-pipeline-job --region=us-central1
 ```
 
 ### Key Environment Variables
 
 | Variable | Description |
 |---|---|
-| `GOOGLE_APPLICATION_CREDENTIALS_HOST` | Path to GCP service account JSON on host machine |
+| `GOOGLE_APPLICATION_CREDENTIALS` | Path to GCP service account JSON |
 | `GCP_PROJECT_ID` | BigQuery project ID |
 | `BQ_DATASET` | BigQuery dataset name |
-| `DBT_PROFILES_DIR_HOST` | Path to `~/.dbt` folder on host machine |
-| `TIKTOK_FOLDER_HOST` | Path to TikTok export `.txt` files on host machine |
-| `FACEBOOK_CSV_FOLDER_HOST` | Path to Facebook CSV exports on host machine |
 | `FACEBOOK_ACCESS_TOKEN` | Facebook Graph API long-lived page token |
 | `YOUTUBE_API_KEY` | YouTube Data API v3 key |
+| `PUBSUB_TOPIC` | GCP Pub/Sub topic for TikTok Live events |
 
 ---
 
@@ -294,36 +315,40 @@ The 2 warnings are documented known limitations:
 
 Real projects have real problems. Here's what actually happened.
 
----
-
 ### 1. Dockerising the Pipeline
 The original pipeline ran via `run_pipeline.bat` with hardcoded Windows paths throughout the ingestion scripts (`C:\Users\...`). Containerising required removing every hardcoded path, replacing them with environment variables, and mounting host directories as Docker volumes. The `profiles.yml` needed to work in both local and container contexts — solved using dbt's `env_var()` function so the same file works everywhere, with the credential path injected at runtime.
 
-### 2. Facebook Access Token Expiry
+### 2. Migrating from Local to GCP Cloud Run
+The local pipeline ran via WSL2 + Windows Task Scheduler. Migrating to Cloud Run required pushing the Docker image to Google Artifact Registry, configuring Secret Manager for credentials, and wiring Cloud Scheduler to trigger the job daily. The same Docker image runs in both environments — no code changes, only infrastructure changes.
+
+### 3. Facebook Access Token Expiry
 The Facebook Graph API uses short-lived access tokens that expire every 60 days. During development this meant the pipeline would silently fail mid-run until I caught the pattern. The fix was building token validation as the first task in the ingestion script — fail fast and loud rather than fail silently downstream. Long-lived page tokens are now used where possible.
 
-### 3. Facebook API Data Limitations
+### 4. Facebook API Data Limitations
 The Graph API only returns data within a rolling window — not lifetime historical data. Post-level insights are also severely restricted without advanced permissions. I supplemented with Facebook CSV exports where the API fell short. Full data scope is pending Meta business verification approval.
 
-### 4. TikTok Data Format
+### 5. TikTok Data Format
 TikTok doesn't provide a standard API for historical data — exports come as structured `.txt` files with custom delimiters. Built a custom regex parser to extract sessions, metrics, and timestamps from raw text across five export types (live history, posts, followers, comments, watch history).
 
-### 5. Grain Mismatch Across Sources
+### 6. Building the Streaming Layer
+Batch data tells you what happened yesterday. For a church doing Sunday live streams, that's not enough. Built a real-time TikTok Live listener using `TikTokLive` + GCP Pub/Sub — capturing viewer counts, likes, comments, follows, shares, and gifts as events stream in. On stream end, the session data is aggregated, an HTML report is generated, and it's emailed automatically to church leadership.
+
+### 7. Grain Mismatch Across Sources
 The hardest modelling problem in the project. Facebook returns data at the page-day grain. YouTube returns data at the video grain. TikTok live returns data at the session grain. TikTok posts return data at the post grain. Joining these for cross-platform analysis required deliberate intermediate models — you can't JOIN a video to a day without an explicit aggregation step. Several early mart attempts produced fan-out duplicates before I understood the grain of each source deeply enough to model correctly.
 
-### 6. Incremental Models vs GCP Cost Constraints
+### 8. Incremental Models vs GCP Cost Constraints
 The original architecture used dbt incremental models to only process new records on each run — the correct approach for production. However BigQuery charges per byte scanned, and incremental models require partition filtering that added unexpected query costs during development. The pragmatic decision was to revert to full refresh models and handle deduplication in the staging layer using `ROW_NUMBER()` window functions.
 
-### 7. API Null Handling
+### 9. API Null Handling
 Every API returns nulls differently. Facebook returns `null` for metrics with zero activity. YouTube omits fields entirely for videos with no comments. TikTok exports use empty strings instead of nulls. The staging layer standardises all of these — `NULLIF()` for empty strings, `COALESCE()` for missing metrics, explicit `CAST()` for type safety.
 
-### 8. Append vs Idempotency
+### 10. Append vs Idempotency
 Early ingestion scripts used simple appends — run the script twice and you'd get duplicate rows. The fix was adding deduplication logic in staging using `ROW_NUMBER() OVER (PARTITION BY [primary_key] ORDER BY ingested_at DESC)` — always keeping the most recent record. This makes every `dbt run` idempotent — run it 10 times and the output is identical.
 
-### 9. Date Normalisation Across Platforms
+### 11. Date Normalisation Across Platforms
 Facebook returns dates as `YYYY-MM-DD` strings. YouTube returns ISO 8601 timestamps with timezone offsets. TikTok exports return dates with UTC suffixes. All date handling is standardised in staging to `DATE` type in UTC, with `day_of_week`, `year_month`, and `year_week` derived fields added consistently so every mart can be sliced the same way in Looker Studio.
 
-### 10. Looker Studio Limitations
+### 12. Looker Studio Limitations
 Looker Studio doesn't support `MEDIAN()` — only `AVERAGE()`. This matters when a single viral TikTok post (8.6K likes) skews the average likes per post to 176, making it look like every post performs well when 66 of 75 posts are under 100 likes. The workaround was building a `like_bucket` field in dbt — bucketing posts by like range — so the distribution tells the honest story rather than a misleading average.
 
 ---
@@ -362,9 +387,9 @@ Separate DAGs per platform was a deliberate architectural decision. If Facebook 
 
 **What broke unexpectedly:** Hardcoded paths. A pipeline that works perfectly on one machine and silently fails in a container is worse than one that fails loudly. Every path is now an environment variable. Every credential is mounted, never embedded.
 
-**What I'd do differently:** Add a streaming layer. The current architecture is batch — daily snapshots. For a church doing live services, near-real-time data during a Sunday stream would be significantly more valuable. Pub/Sub feeding a streaming pipeline alongside the batch layer is the natural next evolution.
+**What I added after v1:** A real-time streaming layer. Pub/Sub now captures TikTok Live sessions as they happen — viewer counts, likes, comments, gifts — with an auto-generated HTML report emailed to church leadership on stream end. Batch tells you what happened yesterday. Streaming tells you what's happening now.
 
-**What I'm most proud of:** The pipeline is live, containerised, running daily, and driving real decisions at Goshen Global Church. Leadership now knows to post Thursday and Saturday, to post something every Wednesday, and that TikTok live streaming is their primary growth engine. That's not a portfolio project. That's impact.
+**What I'm most proud of:** The pipeline is live, containerised, deployed to GCP Cloud Run, and running daily without touching a local machine. Leadership now knows to post Thursday and Saturday, to post something every Wednesday, and that TikTok live streaming is their primary growth engine. That's not a portfolio project. That's impact.
 
 ---
 
@@ -377,8 +402,9 @@ This platform gave Goshen Global Church:
 - **Identification of the Wednesday opportunity** — high traffic, zero content
 - **The viral content blueprint** — Orlando YMCA + original sound = reach
 - **Proof that TikTok live streaming is the primary growth engine**
+- **Real-time session reports** delivered to leadership after every Sunday livestream
 
-> *Live in production. Driving real content decisions at Goshen Global Church*
+> *Live in production. Running on GCP. Driving real content decisions at Goshen Global Church.*
 
 ---
 
@@ -392,7 +418,7 @@ Remote contracts │ UTC+2
 - 💼 [LinkedIn](https://www.linkedin.com/in/proud-ndlovu-89070854/)
 - 🐙 [GitHub](https://github.com/ApostolicDA)
 
-*Stack: dbt · BigQuery · Docker · Airflow · Python · SQL · Looker Studio*
+*Stack: dbt · BigQuery · Docker · GCP Cloud Run · Pub/Sub · Python · SQL · Looker Studio*
 
 ---
 
