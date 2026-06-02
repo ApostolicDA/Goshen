@@ -38,7 +38,7 @@ Raw sources → Staging models → Mart models → Executive summary. Every depe
 │         Containerised via Docker + Google Artifact Registry     │
 │         Orchestrated via GCP Cloud Run Jobs                     │
 │         Scheduled daily via GCP Cloud Scheduler (00:00 SAST)    │
-│         Streaming layer: TikTok Live → Pub/Sub → BigQuery       │
+│  Streaming: TikTok Live + YouTube Live → Pub/Sub → BigQuery     │
 └─────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
@@ -68,7 +68,7 @@ Raw sources → Staging models → Mart models → Executive summary. Every depe
 | Ingestion | Python 3.11 |
 | Containerisation | Docker + Google Artifact Registry |
 | Orchestration | GCP Cloud Run Jobs + Cloud Scheduler |
-| Streaming | GCP Pub/Sub (TikTok Live real-time ingestion) |
+| Streaming | GCP Pub/Sub (TikTok Live + YouTube Live real-time ingestion) |
 | Visualization | Looker Studio |
 | Version Control | Git + GitHub |
 | APIs | Facebook Graph API, YouTube Data API v3, TikTok data export |
@@ -181,9 +181,11 @@ goshen/
 │   ├── facebook_csv_ingestion.py
 │   ├── youtube_ingestion.py
 │   └── tiktok_ingestion.py
-├── streaming/                # TikTok Live real-time ingestion
-│   └── tiktok_live/
-│       └── listener.py       # Pub/Sub event publisher + session report
+├── streaming/                # Real-time live stream ingestion
+│   ├── tiktok_live/
+│   │   └── listener.py       # TikTok Live — Pub/Sub event publisher + session report
+│   └── youtube_live/
+│       └── youtube_live_collector.py  # YouTube Live — OAuth2 polling + session report
 ├── run_ingestion.py          # Ingestion entry point
 ├── packages.yml              # dbt packages (dbt_utils)
 └── dbt_project.yml
@@ -209,15 +211,40 @@ Containerised image stored in Google Artifact Registry (`us-central1`). Each ste
 
 ### Streaming Layer (Active — GCP Pub/Sub)
 
-TikTok Live sessions captured in real-time:
+> *Batch analytics tells you what happened yesterday. The streaming layer tells you what's happening right now — during the service, as the congregation watches.*
 
+The streaming layer started as an engineering decision and became something more significant. After the first stakeholder presentation, it was clear that Sunday live streams were Goshen's most important content — the moment when their global community gathers in real time. Batch data collected the day after couldn't capture that. Something had to run during the stream itself.
+
+Two collectors were built — one for TikTok, one for YouTube. They run simultaneously every Sunday, watching both platforms at once. Every viewer count, every chat message, every follow and gift is captured as it happens, buffered in memory, and flushed to BigQuery every 30 seconds through a three-layer delivery system designed to survive network failures mid-stream.
+
+When the stream ends, the pipeline generates a full HTML session report — viewer curve, peak viewers, top engagers, recent chat — and emails it automatically to church leadership. They wake up Monday morning with the full story of Sunday's service already in their inbox.
+
+**TikTok Live flow:**
 ```
-TikTok Live event → Python listener → Pub/Sub topic
-                 → BigQuery raw_tiktok_live_events
-                 → Auto-generated HTML session report → Email delivery
+TikTok WebSocket → async event handlers → in-memory buffer
+                → 30s flush → Pub/Sub topic (tiktok-live-events)
+                → BigQuery raw_tiktok_live_events
+                → HTML session report → Email to leadership
 ```
 
-Captures per session: viewer counts, likes, comments, follows, shares, gifts, reconnections. Session report generated and emailed to church leadership automatically on stream end.
+**YouTube Live flow:**
+```
+YouTube Data API v3 (polling every 5s) → in-memory buffer
+                → 30s flush → Pub/Sub topic (youtube-live-events)
+                → BigQuery raw_youtube_live_events
+                → HTML session report → Email to leadership
+```
+
+**Three-layer delivery (both platforms):**
+```
+Layer 1 — Local JSONL  : written to disk before any network call (always safe)
+Layer 2 — Pub/Sub      : primary delivery → BQ subscription writes to BigQuery
+Layer 3 — BQ load job  : fallback if Pub/Sub fails → reads local JSONL directly
+```
+
+Data captured per TikTok session: viewer counts over time, likes, comments, follows, shares, gifts, diamond totals, reconnection events.
+
+Data captured per YouTube session: concurrent viewer counts over time, live chat messages, stream duration, top chatters.
 
 ### Local (Legacy)
 
@@ -248,6 +275,7 @@ Original automation via Windows Task Scheduler + WSL2 + Docker Desktop. Replaced
 - GCP service account with BigQuery, Cloud Run, and Pub/Sub permissions
 - Facebook Graph API long-lived page token
 - YouTube Data API v3 key
+- YouTube OAuth2 credentials (for live stream access)
 
 ### Deploy
 
@@ -288,7 +316,12 @@ gcloud run jobs execute goshen-pipeline-job --region=us-central1
 | `BQ_DATASET` | BigQuery dataset name |
 | `FACEBOOK_ACCESS_TOKEN` | Facebook Graph API long-lived page token |
 | `YOUTUBE_API_KEY` | YouTube Data API v3 key |
-| `PUBSUB_TOPIC` | GCP Pub/Sub topic for TikTok Live events |
+| `YOUTUBE_OAUTH_CREDENTIALS` | Path to YouTube OAuth2 client secret JSON |
+| `YOUTUBE_CHANNEL_ID` | Goshen YouTube channel ID |
+| `PUBSUB_TOPIC_ID` | GCP Pub/Sub topic for live stream events |
+| `GMAIL_SENDER` | Gmail address for session report delivery |
+| `GMAIL_APP_PASSWORD` | Gmail App Password for SMTP |
+| `EMAIL_RECIPIENTS` | Comma-separated recipient list for session reports |
 
 ---
 
@@ -330,25 +363,28 @@ The Graph API only returns data within a rolling window — not lifetime histori
 ### 5. TikTok Data Format
 TikTok doesn't provide a standard API for historical data — exports come as structured `.txt` files with custom delimiters. Built a custom regex parser to extract sessions, metrics, and timestamps from raw text across five export types (live history, posts, followers, comments, watch history).
 
-### 6. Building the Streaming Layer
-Batch data tells you what happened yesterday. For a church doing Sunday live streams, that's not enough. Built a real-time TikTok Live listener using `TikTokLive` + GCP Pub/Sub — capturing viewer counts, likes, comments, follows, shares, and gifts as events stream in. On stream end, the session data is aggregated, an HTML report is generated, and it's emailed automatically to church leadership.
+### 6. Building the TikTok Streaming Layer
+Batch data tells you what happened yesterday. For a church doing Sunday live streams, that's not enough. Built a real-time TikTok Live listener using `TikTokLive` + GCP Pub/Sub — capturing viewer counts, likes, comments, follows, shares, and gifts as events stream in via WebSocket. The first challenge was the Sign API — TikTokLive-python relies on a third-party signing service (eulerstream) to authenticate the WebSocket connection. Private/restricted test streams returned 500 errors; public streams connected cleanly. Jitter was added to reconnect delays to prevent rate limiting. On stream end, session data is aggregated, an HTML report is generated, and it's emailed automatically to church leadership.
 
-### 7. Grain Mismatch Across Sources
+### 7. Building the YouTube Streaming Layer
+Extending the streaming architecture to YouTube required a fundamentally different approach. Unlike TikTok which pushes events via WebSocket, the YouTube Data API v3 uses polling — you ask for new chat messages every few seconds using `nextPageToken` pagination. OAuth2 authentication was required (not just an API key) since accessing live chat data requires acting on behalf of the channel owner. The OAuth consent flow runs once, saves a token locally, and auto-refreshes on subsequent runs. The same three-layer delivery architecture handles both platforms — Pub/Sub primary, BQ load job fallback, local JSONL safety net — meaning the YouTube collector was built on proven foundations from day one.
+
+### 8. Grain Mismatch Across Sources
 The hardest modelling problem in the project. Facebook returns data at the page-day grain. YouTube returns data at the video grain. TikTok live returns data at the session grain. TikTok posts return data at the post grain. Joining these for cross-platform analysis required deliberate intermediate models — you can't JOIN a video to a day without an explicit aggregation step. Several early mart attempts produced fan-out duplicates before I understood the grain of each source deeply enough to model correctly.
 
-### 8. Incremental Models vs GCP Cost Constraints
+### 9. Incremental Models vs GCP Cost Constraints
 The original architecture used dbt incremental models to only process new records on each run — the correct approach for production. However BigQuery charges per byte scanned, and incremental models require partition filtering that added unexpected query costs during development. The pragmatic decision was to revert to full refresh models and handle deduplication in the staging layer using `ROW_NUMBER()` window functions.
 
-### 9. API Null Handling
+### 10. API Null Handling
 Every API returns nulls differently. Facebook returns `null` for metrics with zero activity. YouTube omits fields entirely for videos with no comments. TikTok exports use empty strings instead of nulls. The staging layer standardises all of these — `NULLIF()` for empty strings, `COALESCE()` for missing metrics, explicit `CAST()` for type safety.
 
-### 10. Append vs Idempotency
+### 11. Append vs Idempotency
 Early ingestion scripts used simple appends — run the script twice and you'd get duplicate rows. The fix was adding deduplication logic in staging using `ROW_NUMBER() OVER (PARTITION BY [primary_key] ORDER BY ingested_at DESC)` — always keeping the most recent record. This makes every `dbt run` idempotent — run it 10 times and the output is identical.
 
-### 11. Date Normalisation Across Platforms
+### 12. Date Normalisation Across Platforms
 Facebook returns dates as `YYYY-MM-DD` strings. YouTube returns ISO 8601 timestamps with timezone offsets. TikTok exports return dates with UTC suffixes. All date handling is standardised in staging to `DATE` type in UTC, with `day_of_week`, `year_month`, and `year_week` derived fields added consistently so every mart can be sliced the same way in Looker Studio.
 
-### 12. Looker Studio Limitations
+### 13. Looker Studio Limitations
 Looker Studio doesn't support `MEDIAN()` — only `AVERAGE()`. This matters when a single viral TikTok post (8.6K likes) skews the average likes per post to 176, making it look like every post performs well when 66 of 75 posts are under 100 likes. The workaround was building a `like_bucket` field in dbt — bucketing posts by like range — so the distribution tells the honest story rather than a misleading average.
 
 ---
@@ -387,7 +423,7 @@ Separate DAGs per platform was a deliberate architectural decision. If Facebook 
 
 **What broke unexpectedly:** Hardcoded paths. A pipeline that works perfectly on one machine and silently fails in a container is worse than one that fails loudly. Every path is now an environment variable. Every credential is mounted, never embedded.
 
-**What I added after v1:** A real-time streaming layer. Pub/Sub now captures TikTok Live sessions as they happen — viewer counts, likes, comments, gifts — with an auto-generated HTML report emailed to church leadership on stream end. Batch tells you what happened yesterday. Streaming tells you what's happening now.
+**What I added after v1:** A real-time streaming layer — two collectors, two platforms, running simultaneously every Sunday. Pub/Sub captures TikTok Live and YouTube Live sessions as they happen, with auto-generated HTML reports emailed to church leadership on stream end. Batch tells you what happened yesterday. Streaming tells you what's happening now.
 
 **What I'm most proud of:** The pipeline is live, containerised, deployed to GCP Cloud Run, and running daily without touching a local machine. Leadership now knows to post Thursday and Saturday, to post something every Wednesday, and that TikTok live streaming is their primary growth engine. That's not a portfolio project. That's impact.
 
@@ -402,7 +438,7 @@ This platform gave Goshen Global Church:
 - **Identification of the Wednesday opportunity** — high traffic, zero content
 - **The viral content blueprint** — Orlando YMCA + original sound = reach
 - **Proof that TikTok live streaming is the primary growth engine**
-- **Real-time session reports** delivered to leadership after every Sunday livestream
+- **Real-time session reports** delivered to leadership after every Sunday livestream — both TikTok and YouTube simultaneously
 
 > *Live in production. Running on GCP. Driving real content decisions at Goshen Global Church.*
 
