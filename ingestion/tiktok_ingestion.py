@@ -3,6 +3,7 @@ import os
 from datetime import datetime, timezone
 import pandas as pd
 from google.cloud import bigquery
+from google.cloud import storage as gcs
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,17 +14,18 @@ load_dotenv()
 client = bigquery.Client()
 
 # ── CONFIG ────────────────────────────────────────────────────
-# Reads from env var — set in .env for local, mounted volume in Docker
-TIKTOK_FOLDER = os.getenv("TIKTOK_FOLDER", "./data/tiktok")
+# Files stored in GCS — accessible from Cloud Run, Airflow, and local
+GCS_BUCKET = os.getenv("GCS_BUCKET", "goshen-tiktok-exports")
 
-LIVE_HISTORY_FILE  = os.path.join(TIKTOK_FOLDER, "Go_LIVE_History.txt")
-LIVE_COMMENTS_FILE = os.path.join(TIKTOK_FOLDER, "LiveStream_Comment.txt")
-POSTS_FILE         = os.path.join(TIKTOK_FOLDER, "Posts.txt")
-WATCH_LIVE_FILE    = os.path.join(TIKTOK_FOLDER, "Watch_LIVE_History.txt")
-FOLLOWER_FILE      = os.path.join(TIKTOK_FOLDER, "Follower.txt")
+LIVE_HISTORY_FILE  = "Go_LIVE_History.txt"
+LIVE_COMMENTS_FILE = "LiveStream_Comment.txt"
+POSTS_FILE         = "Posts.txt"
+WATCH_LIVE_FILE    = "Watch_LIVE_History.txt"
+FOLLOWER_FILE      = "Follower.txt"
 
 BQ_PROJECT = os.getenv("GCP_PROJECT_ID", "goshen-analytics")
 BQ_DATASET = os.getenv("BQ_DATASET", "analytics")
+
 
 # ── HELPER ────────────────────────────────────────────────────
 def now_utc():
@@ -33,11 +35,19 @@ def extract(pattern, text, default=None):
     match = re.search(pattern, text)
     return match.group(1).strip() if match else default
 
+def read_gcs_file(bucket_name, blob_name):
+    """Download a GCS file and return its content as a string."""
+    gcs_client = gcs.Client()
+    bucket = gcs_client.bucket(bucket_name)
+    blob = bucket.blob(blob_name)
+    content = blob.download_as_text(encoding="utf-8")
+    print(f"✅ Read gs://{bucket_name}/{blob_name}")
+    return content
+
 
 # ── 1. LIVE HISTORY ───────────────────────────────────────────
-def parse_live_history(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
+def parse_live_history(blob_name):
+    content = read_gcs_file(GCS_BUCKET, blob_name)
 
     sessions = [s.strip() for s in content.strip().split("------------") if s.strip()]
 
@@ -63,9 +73,8 @@ def parse_live_history(filepath):
 
 
 # ── 2. LIVE COMMENTS ──────────────────────────────────────────
-def parse_live_comments(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
+def parse_live_comments(blob_name):
+    content = read_gcs_file(GCS_BUCKET, blob_name)
 
     sessions = [s.strip() for s in content.strip().split("-----------------------") if s.strip()]
 
@@ -88,9 +97,8 @@ def parse_live_comments(filepath):
 
 
 # ── 3. POSTS ──────────────────────────────────────────────────
-def parse_posts(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
+def parse_posts(blob_name):
+    content = read_gcs_file(GCS_BUCKET, blob_name)
 
     sessions = [s.strip() for s in re.split(r"\n\n(?=Date:)", content.strip()) if s.strip()]
 
@@ -116,9 +124,8 @@ def parse_posts(filepath):
 
 
 # ── 4. WATCH LIVE HISTORY ─────────────────────────────────────
-def parse_watch_live_history(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
+def parse_watch_live_history(blob_name):
+    content = read_gcs_file(GCS_BUCKET, blob_name)
 
     sessions = [s.strip() for s in re.split(r"\n(?=Date and time:)", content.strip()) if s.strip()]
 
@@ -143,9 +150,8 @@ def parse_watch_live_history(filepath):
 
 
 # ── 5. FOLLOWERS ──────────────────────────────────────────────
-def parse_followers(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
+def parse_followers(blob_name):
+    content = read_gcs_file(GCS_BUCKET, blob_name)
 
     blocks = [b.strip() for b in re.split(r"\n\n(?=Date:)", content.strip()) if b.strip()]
 
