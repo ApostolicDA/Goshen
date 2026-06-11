@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import os
 
 scripts = [
     "ingestion/facebook_ingestion.py",
@@ -8,10 +9,32 @@ scripts = [
     "ingestion/tiktok_ingestion.py",
 ]
 
+# ── Step 1: Run ingestion scripts ─────────────────────────────
 for script in scripts:
     print(f"\n🚀 Running {script}...")
     result = subprocess.run([sys.executable, script])
     if result.returncode == 0:
         print(f"✅ {script} completed")
     else:
-        print(f"❌ {script} failed")
+        print(f"⚠️  {script} failed")
+
+# ── Step 2: Run dbt ───────────────────────────────────────────
+print("\n🚀 Running dbt run...")
+dbt_run = subprocess.run(
+    ["dbt", "run", "--profiles-dir", "/app", "--project-dir", "/app"],
+    capture_output=False
+)
+if dbt_run.returncode == 0:
+    print("✅ dbt run completed")
+else:
+    print("⚠️  dbt run failed")
+
+print("\n🚀 Running dbt test...")
+dbt_test = subprocess.run(
+    ["dbt", "test", "--profiles-dir", "/app", "--project-dir", "/app"],
+    capture_output=False
+)
+if dbt_test.returncode == 0:
+    print("✅ dbt test completed")
+else:
+    print("⚠️  dbt test failed")
